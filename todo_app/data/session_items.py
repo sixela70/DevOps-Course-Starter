@@ -67,3 +67,13 @@ def save_item(item):
     session['items'] = updated_items
 
     return item
+
+def mark_item_done(item):
+    print(item)
+    item['status'] = 'Done'
+    save_item(item)
+
+def mark_item_not_done(item):
+    print(item)
+    item['status'] = 'Not Started'
+    save_item(item)
