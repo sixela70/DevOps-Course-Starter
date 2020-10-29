@@ -32,12 +32,19 @@ $ cp .env.template .env  # (first time only)
 
 The `.env` file is used by flask to set environment variables when running `flask run`. This enables things like development mode (which also enables features like hot reloading when you make a file change). There's also a [SECRET_KEY](https://flask.palletsprojects.com/en/1.1.x/config/#SECRET_KEY) variable which is used to encrypt the flask session cookie.
 
+## Running under windows CMD ensure you have python_dotenv installed to pick up the .env files.
+Do "pip install python-dotenv" 
+
 ## Running the App
 
-Once the all dependencies have been installed, start the Flask app in development mode within the poetry environment by running:
+Once the all dependencies have been installed, start t he Flask app in development mode within the poetry environment by running:
+
 ```bash
 $ poetry run flask run
 ```
+or 
+<Your DevOps-Course-Starter Directory>>poetry run flask run
+
 
 You should see output similar to the following:
 ```bash
@@ -49,4 +56,15 @@ You should see output similar to the following:
  * Debugger is active!
  * Debugger PIN: 226-556-590
 ```
+
+C:\devops\DevOps-Course-Starter>poetry run flask run
+ * Serving Flask app "todo_app/app" (lazy loading)
+ * Environment: development
+ * Debug mode: on
+ * Restarting with stat
+ * Debugger is active!
+ * Debugger PIN: 234-412-872
+ * Running on http://127.0.0.1:5000/ (Press CTRL+C to quit)
+
+
 Now visit [`http://localhost:5000/`](http://localhost:5000/) in your web browser to view the app.
