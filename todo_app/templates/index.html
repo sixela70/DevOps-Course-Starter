@@ -1,57 +1,66 @@
-{% extends "layout.html" %}
-{% block title %}To-Do App{% endblock %}
+{% extends "layout.html" %} {% block title %}To-Do App{% endblock %} {% block
+content %}
+<div class="jumbotron">
+  <h1 class="display-4">To-Do App</h1>
+  <p class="lead">Just another to-do app.</p>
+</div>
 
-{% block content %}
-  <div class="jumbotron">
-    <h1 class="display-4">To-Do App</h1>
-    <p class="lead">Just another to-do app.</p>
+<div class="row">
+  <div class="col-md-12">
+    <h2>Items</h2>
+    <ul class="list-group mb-4">
+      <form action="update" method="post" class="form-group">
+        <div class="form-group">
+          <table style="width: 100%">
+            <tr>
+              {% for item in items %}
+              <div class="checkbox checkbox-warning checkbox-circle">
+                {% if item.status == 'Not Started' %}
+                <tr>
+                  <td>
+                    <input
+                      type="checkbox"
+                      id="{{ item.id }}"
+                      name="to_do_chk_{{ item.id }}"
+                      value="{{ item.id }}"
+                    />
+                  </td>
+                  <td>{{ item.title }}</td>
+                </tr>
+                {% else %}
+                <tr>
+                  <td>
+                    <input
+                      type="checkbox"
+                      id="{{ item.id }}"
+                      name="to_do_chk_{{ item.id }}"
+                      value="{{ item.id}}"
+                      checked
+                    />
+                  </td>
+                  <td>{{ item.title }}</td>
+                </tr>
+              </div>
+              {% endif %} {% endfor %}
+            </tr>
+          </table>
+          &nbsp;
+
+          <input
+            type="text"
+            class="form-control"
+            id="todo1"
+            name="new_todo_item"
+            placeholder="Enter New To Do Item"
+          />
+          <br />
+          <button type="submit" class="btn btn-warning" name="update_items">
+            Update Items
+          </button>
+        </div>
+      </form>
+    </ul>
   </div>
+</div>
 
-  <div class="row">
-    <div class="col-md-12">
-      <h2>Items</h2>
-      <ul class="list-group mb-4"> 
-        <!-- List the todo items here -->
-         {% for item in items %}
-            <li>{{ item.id }}- {{ item.title }} - {{ item.status }}</li>
-          {% endfor %}
-      </ul>
-    </div>
-  </div>
-
-<form action="update" method="post" class="form-group">
-<div class="form-group">
-<table style="width:100%">
-  <tr>
-    {% for item in items %}
-      <div class="checkbox checkbox-warning checkbox-circle">
-      {% if item.status == 'Not Started' %}
-      <tr>
-        <td><input type="checkbox" id="{{ item.id }}" name="to_do_chk_{{ item.id }}" value="{{ item.id }}"></td>
-        <td>{{ item.title }}</td>
-      </tr>                    
-      {% else %}
-      <tr>
-        <td><input type="checkbox" id="{{ item.id }}" name="to_do_chk_{{ item.id }}" value="{{ item.id}}" checked></td>
-        <td>{{ item.title }}</td>
-      </tr>                 
-      </div>   
-      {% endif %}
-    {% endfor %}
-  </tr>
-</table>
-  &nbsp;
-  
-    
-    <input type="text" class="form-control" id="todo1" name="new_todo_item" placeholder="Enter New To Do Item">
-    <br>
-    <button type="submit" class="btn btn-warning" name="update_items">Update Items</button>
-    </div>
-
-</form>
-
-
-
-
-
- {% endblock %}
+{% endblock %}
