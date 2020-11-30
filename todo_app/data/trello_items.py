@@ -58,7 +58,6 @@ def get_items():
     
 ### Yeaaaaaaaaaaaaaaaa gods this is slow 
 def add_item(title):
-    board_id = get_board_id()
     dolist_id = get_todo_list_id()
     url = TrelloBase.base_address+'/cards?'
     data = TrelloBase.auth_tokens_obj()
@@ -68,14 +67,16 @@ def add_item(title):
 
 ## Move item to the other list 
 def mark_item_done(item):
-    
-    print(item)
-    #item['status'] = 'Done'
-    #save_item(item)
+    done_list_id = get_done_list_id()
+    url = TrelloBase.base_address+'/cards/'+item['id']+'?'
+    data = TrelloBase.auth_tokens_obj()
+    data["idList"] = done_list_id
+    requests.put(url, data)
 
 def mark_item_not_done(item):
-    print(item)
-    item['status'] = 'Not Started'
-    #save_item(item)
-
+    dolist_id = get_todo_list_id()
+    url = TrelloBase.base_address+'/cards/'+item['id']+'?'
+    data = TrelloBase.auth_tokens_obj()
+    data["idList"] = dolist_id
+    requests.put(url, data)
     
