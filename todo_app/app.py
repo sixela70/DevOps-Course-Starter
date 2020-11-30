@@ -12,7 +12,6 @@ print(r)
 app = Flask(__name__, template_folder="templates")
 app.config.from_object(Config)
 
-
 @app.route("/", methods=['GET', 'POST'])
 def index():
     return render_template('index.html', items=get_items())
@@ -20,43 +19,21 @@ def index():
 @app.route("/complete_item/<string:id>")
 def complete_item(id):
     markid_item_done(id)
-    print(id)
-    return render_template('index.html', items=get_items())
+    return redirect('/')
 
 @app.route("/uncomplete_item/<string:id>")
 def uncomplete_item(id):
     markid_item_undone(id)
-    print(id)
-    return render_template('index.html', items=get_items())
+    return redirect('/')
 
-@app.route("/additem", methods=['GET', 'POST'])
-def additem():
+@app.route("/add_todo_item", methods=['GET', 'POST'])
+def add_todo_item():
+    print("Banana")
     print(request.form)
     new_todo_item = request.form.get('new_todo_item')
     if isvalid(new_todo_item):
         add_item(new_todo_item)
     return redirect('/')
-
-@app.route("/update", methods=['GET', 'POST'])
-def update():
-    print(request.form)
-    new_todo_item = request.form.get('new_todo_item')
-    if isvalid(new_todo_item):
-        add_item(new_todo_item)
-    updateDoneStatus()
-    return redirect('/')
-
-
-def updateDoneStatus():
-    items = get_items()
-    for item in items:
-        print(item['id'])
-        ischeckedkey = "to_do_chk_"+str(item['id'])
-        if request.form.get(ischeckedkey):
-            mark_item_done(item)
-        else:
-            mark_item_not_done(item)
-
 
 def isvalid(new_todo_item):
     return len(new_todo_item) != 0

@@ -5,6 +5,7 @@ from todo_app.trello.trello_base import TrelloBase
 # We should probably cache these id items 
 # To save server hops
 
+"""
 def get_board_id():
     url = 'https://api.trello.com/1/members/me/boards?fields=id'+TrelloBase.auth_tokens()
     response= requests.get(url)
@@ -30,12 +31,13 @@ def get_done_list_id():
         if item['name'] == 'DoneList':
             return item['id']
     return 0            
+"""
 
 # Get all cards from todolist 
 def get_items():
-    board_id = get_board_id()
-    done_list_id = get_done_list_id()
-    dolist_id = get_todo_list_id()
+    board_id = TrelloBase.get_board_id()
+    done_list_id = TrelloBase.get_done_list_id()
+    dolist_id = TrelloBase.get_todo_list_id()
     list_items = []
     url = TrelloBase.base_address+'boards/'+board_id+'/cards?fields=id,idList,name'+TrelloBase.auth_tokens()
     response= requests.get(url)
@@ -58,7 +60,7 @@ def get_items():
     
 ### Yeaaaaaaaaaaaaaaaa gods this is slow 
 def add_item(title):
-    dolist_id = get_todo_list_id()
+    dolist_id = TrelloBase.get_todo_list_id()
     url = TrelloBase.base_address+'/cards?'
     data = TrelloBase.auth_tokens_obj()
     data["idList"] = dolist_id
@@ -76,7 +78,7 @@ def mark_item_done(item):
 """
 
 def markid_item_done(id):
-    done_list_id = get_done_list_id()
+    done_list_id = TrelloBase.get_done_list_id()
     url = TrelloBase.base_address+'/cards/'+id+'?'
     data = TrelloBase.auth_tokens_obj()
     data["idList"] = done_list_id
@@ -91,7 +93,7 @@ def mark_item_not_done(item):
     requests.put(url, data)"""
     
 def markid_item_undone(id):
-    dolist_id = get_todo_list_id()
+    dolist_id = TrelloBase.get_todo_list_id()
     url = TrelloBase.base_address+'/cards/'+id+'?'
     data = TrelloBase.auth_tokens_obj()
     data["idList"] = dolist_id
