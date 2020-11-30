@@ -14,7 +14,8 @@ content %}
           <table style="width: 100%">
             <tr>
               {% for item in items %}
-              <div class="checkbox checkbox-warning checkbox-circle">
+              <div> <!-- class="checkbox checkbox-warning checkbox-circle"> -->
+
                 {% if item.status == 'Not Started' %}
                 <tr>
                   <td>
@@ -26,8 +27,15 @@ content %}
                     />
                   </td>
                   <td>{{ item.title }}</td>
+                  <td>
+                   <a href="{{ url_for('complete_item', id=item.id ) }}"                  
+                   <button type="button" class="btn btn-warning">Done</button>
+                   </a>
+                  </td>
                 </tr>
+
                 {% else %}
+
                 <tr>
                   <td>
                     <input
@@ -39,7 +47,13 @@ content %}
                     />
                   </td>
                   <td>{{ item.title }}</td>
+                  <td>
+                  <a href="{{ url_for('uncomplete_item', id=item.id ) }}"                  
+                  <button type="submit" class="btn btn-success" name="UnDo">UnDone</button>
+                  </a>
+                  </td>
                 </tr>
+
               </div>
               {% endif %} {% endfor %}
             </tr>

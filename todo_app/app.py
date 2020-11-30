@@ -1,6 +1,6 @@
 from flask.globals import request
 #from todo_app.data.session_items import add_item, get_items, mark_item_done, mark_item_not_done
-from todo_app.data.trello_items import add_item, get_items, mark_item_done, mark_item_not_done
+from todo_app.data.trello_items import add_item, get_items, mark_item_done, mark_item_not_done, markid_item_done, markid_item_undone
 from flask import Flask, render_template, redirect
 from todo_app.flask_config import Config
 
@@ -17,6 +17,17 @@ app.config.from_object(Config)
 def index():
     return render_template('index.html', items=get_items())
 
+@app.route("/complete_item/<string:id>")
+def complete_item(id):
+    markid_item_done(id)
+    print(id)
+    return render_template('index.html', items=get_items())
+
+@app.route("/uncomplete_item/<string:id>")
+def uncomplete_item(id):
+    markid_item_undone(id)
+    print(id)
+    return render_template('index.html', items=get_items())
 
 @app.route("/additem", methods=['GET', 'POST'])
 def additem():
@@ -25,7 +36,6 @@ def additem():
     if isvalid(new_todo_item):
         add_item(new_todo_item)
     return redirect('/')
-
 
 @app.route("/update", methods=['GET', 'POST'])
 def update():

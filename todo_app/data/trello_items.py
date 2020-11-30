@@ -67,16 +67,32 @@ def add_item(title):
 
 ## Move item to the other list 
 def mark_item_done(item):
-    done_list_id = get_done_list_id()
+    markid_item_done(item['id'])
+    """done_list_id = get_done_list_id()
     url = TrelloBase.base_address+'/cards/'+item['id']+'?'
+    data = TrelloBase.auth_tokens_obj()
+    data["idList"] = done_list_id
+    requests.put(url, data)
+"""
+
+def markid_item_done(id):
+    done_list_id = get_done_list_id()
+    url = TrelloBase.base_address+'/cards/'+id+'?'
     data = TrelloBase.auth_tokens_obj()
     data["idList"] = done_list_id
     requests.put(url, data)
 
 def mark_item_not_done(item):
-    dolist_id = get_todo_list_id()
+    markid_item_undone(item['id'])
+    """dolist_id = get_todo_list_id()
     url = TrelloBase.base_address+'/cards/'+item['id']+'?'
     data = TrelloBase.auth_tokens_obj()
     data["idList"] = dolist_id
-    requests.put(url, data)
+    requests.put(url, data)"""
     
+def markid_item_undone(id):
+    dolist_id = get_todo_list_id()
+    url = TrelloBase.base_address+'/cards/'+id+'?'
+    data = TrelloBase.auth_tokens_obj()
+    data["idList"] = dolist_id
+    requests.put(url, data)
