@@ -1,5 +1,6 @@
 from flask.globals import request
-from todo_app.data.session_items import add_item, get_items, mark_item_done, mark_item_not_done
+#from todo_app.data.session_items import add_item, get_items, mark_item_done, mark_item_not_done
+from todo_app.data.trello_items import add_item, get_items, mark_item_done, mark_item_not_done
 from flask import Flask, render_template, redirect
 from todo_app.flask_config import Config
 
