@@ -21,12 +21,17 @@ class TrelloBase:
     
     @classmethod
     def auth_tokens(cls):
-        
         if TrelloBase.init == False:
             TrelloBase.init_keys()
             TrelloBase.init = True
 
         return '&key='+TrelloBase.developer_api_key+'&token='+TrelloBase.server_token
 
+    @classmethod
+    def auth_tokens_obj(cls):
+        if TrelloBase.init == False:
+            TrelloBase.init_keys()
+            TrelloBase.init = True
 
+        return { 'key' : TrelloBase.developer_api_key, 'token' : TrelloBase.server_token }
 

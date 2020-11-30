@@ -55,14 +55,20 @@ def get_items():
         list_items.append(list_item)        
     return list_items
 
-    #{ 'id': 1, 'status': 'Not Started', 'title': 'List saved todo items' },
-
-    #{ 'id': 2, 'status': 'Not Started', 'title': 'Allow new items to be added' }
-
+    
+### Yeaaaaaaaaaaaaaaaa gods this is slow 
 def add_item(title):
-    print('banana')
+    board_id = get_board_id()
+    dolist_id = get_todo_list_id()
+    url = TrelloBase.base_address+'/cards?'
+    data = TrelloBase.auth_tokens_obj()
+    data["idList"] = dolist_id
+    data["name"] =  title
+    requests.post(url, data)
 
+## Move item to the other list 
 def mark_item_done(item):
+    
     print(item)
     #item['status'] = 'Done'
     #save_item(item)
