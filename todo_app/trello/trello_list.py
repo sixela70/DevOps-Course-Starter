@@ -4,7 +4,6 @@
 class TrelloList:
 
     def __init__(self):
-        print("New Trello List")
         self._items=[]
 
     def add(self,trello_item):

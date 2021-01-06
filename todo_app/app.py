@@ -1,16 +1,10 @@
 from flask.globals import request
-#from todo_app.data.session_items import add_item, get_items, mark_item_done, mark_item_not_done
 from todo_app.data.trello_items import add_item, get_trello_list, mark_item_done, mark_item_not_done, markid_item_done, markid_item_undone
 from flask import Flask, render_template, redirect
-#from todo_app.flask_config import Config
 
 import requests
 
-r = requests.get('https://api.github.com/events')
-print(r)
-
 app = Flask(__name__, template_folder="templates")
-#app.config.from_object(Config)
 
 @app.route("/", methods=['GET', 'POST'])
 def index():
@@ -37,7 +31,6 @@ def add_todo_item():
 
 def isvalid(new_todo_item):
     return len(new_todo_item) != 0
-
 
 if __name__ == '__main__':
     app.run()
