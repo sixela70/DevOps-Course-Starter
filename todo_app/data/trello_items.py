@@ -1,28 +1,32 @@
 
 import requests
+from todo_app.trello.trello_list import TrelloList
 from todo_app.trello.trello_base import TrelloBase
+from todo_app.trello.trello_item import TrelloItem
 
 # Get all cards from todolist 
-def get_items():
+def get_trello_list():
     board_id = TrelloBase.get_board_id()
     done_list_id = TrelloBase.get_done_list_id()
     dolist_id = TrelloBase.get_todo_list_id()
-    list_items = []
+    trello_list = TrelloList()
     url = TrelloBase.base_address+'boards/'+board_id+'/cards?fields=id,idList,name'+TrelloBase.auth_tokens()
     response= requests.get(url)
     jsonResponse = response.json()
-    ## cycle through and build new list using the list id determine if done or todo yuck yuck yuck why am creating a new list 
-    ## surely I can filter in someway .. but I want the status field. 
-    ## perhaps if I have time come back to this 
+
     for item in jsonResponse:
         if item['idList'] == done_list_id:
-            list_item = { 'id' : item['id'], 'title' : item['name'] , 'status' : 'Done' }
+            list_item = TrelloItem(item['id'],item['name'] ,'Done')
         elif item['idList'] == dolist_id:
-            list_item = { 'id' : item['id'], 'title' : item['name'] , 'status' : 'Not Started' }
+            list_item = TrelloItem(item['id'],item['name'] ,'Not Started')
         else:
             print('Discarding items from other test list ' + item['id'] + '  ' +item['name'])
-        list_items.append(list_item)        
-    return list_items
+            continue
+        print('banana')                    
+        print(list_item.id)
+        trello_list.add(list_item)    
+    return trello_list
+
 
 def add_item(title):
     dolist_id = TrelloBase.get_todo_list_id()

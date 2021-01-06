@@ -13,7 +13,7 @@ content %}
         <div class="form-group">
           <table style="width: 100%">
             <tr>
-              {% for item in items %}
+              {% for item in items.trello_items %}
               <div> <!-- class="checkbox checkbox-warning checkbox-circle"> -->
 
                 {% if item.status == 'Not Started' %}
