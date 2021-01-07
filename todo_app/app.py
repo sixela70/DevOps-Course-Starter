@@ -1,14 +1,15 @@
 from flask.globals import request
 from todo_app.data.trello_items import add_item, get_trello_list, mark_item_done, mark_item_not_done, markid_item_done, markid_item_undone
 from flask import Flask, render_template, redirect
+from todo_app.view_models.trello_view_model import TrelloViewModel 
 
-import requests
 
 app = Flask(__name__, template_folder="templates")
 
 @app.route("/", methods=['GET', 'POST'])
 def index():
-    return render_template('index.html', items=get_trello_list())
+    item_view_model = TrelloViewModel(get_trello_list())  
+    return render_template('index.html', view_model=item_view_model)
 
 @app.route("/complete_item/<string:id>")
 def complete_item(id):
