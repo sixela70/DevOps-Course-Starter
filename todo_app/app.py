@@ -22,8 +22,6 @@ def uncomplete_item(id):
 
 @app.route("/add_todo_item", methods=['GET', 'POST'])
 def add_todo_item():
-    print("Banana")
-    print(request.form)
     new_todo_item = request.form.get('new_todo_item')
     if isvalid(new_todo_item):
         add_item(new_todo_item)
