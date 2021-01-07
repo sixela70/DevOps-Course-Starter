@@ -1,6 +1,6 @@
 import pytest
 
-from todo_app.data.trello_items import get_items
+from todo_app.data.trello_items import get_trello_list
 from todo_app.view_models.trello_view_model import TrelloViewModel
 
 
