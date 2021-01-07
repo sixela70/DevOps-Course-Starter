@@ -22,8 +22,6 @@ def get_trello_list():
         else:
             print('Discarding items from other test list ' + item['id'] + '  ' +item['name'])
             continue
-        print('banana')                    
-        print(list_item.id)
         trello_list.add(list_item)    
     return trello_list
 
