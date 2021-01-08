@@ -37,4 +37,20 @@ def test_get_done_items(tvm):
     l = tvm.get_done_items()
     assert l.len == 3
 
+def test_get_all_done_items(tvm):
+    l = tvm.get_done_items()
+    assert l.len == 3
+
+def test_get_all_done_items_today(tvm):
+    l = tvm.get_all_done_items_today()
+    assert l.len == 3
+
+def test_get_all_done_items_before_today(tvm):
+    l = tvm.get_all_done_items_before_today()
+    assert l.len == 3
+
+
+
+
+
 
