@@ -11,6 +11,7 @@ class TrelloBase:
     board_id = None
     todo_list_id = None
     done_list_id = None
+    doing_list_id = None
        
     @classmethod
     def init_keys(cls):
@@ -68,4 +69,12 @@ class TrelloBase:
                     TrelloBase.done_list_id = item['id']
         return TrelloBase.done_list_id            
 
+    @classmethod
+    def get_doing_list_id(cls):
+        if TrelloBase.done_list_id is None:
+            jsonResponse = TrelloBase.get_lists()
+            for item in jsonResponse:
+                if item['name'] == 'DoingList':
+                    TrelloBase.doing_list_id = item['id']
+        return TrelloBase.doing_list_id            
 

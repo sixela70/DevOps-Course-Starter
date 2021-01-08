@@ -13,7 +13,6 @@ def get_trello_list():
     url = TrelloBase.base_address+'boards/'+board_id+'/cards?fields=id,idList,name'+TrelloBase.auth_tokens()
     response= requests.get(url)
     jsonResponse = response.json()
-
     for item in jsonResponse:
         if item['idList'] == done_list_id:
             list_item = TrelloItem(item['id'],item['name'] ,'Done')
@@ -25,6 +24,14 @@ def get_trello_list():
         trello_list.add(list_item)    
     return trello_list
 
+def get_all_trello_items():
+    url = TrelloBase.base_address+'boards/'+TrelloBase.get_board_id()+'/cards?fields=id,idList,name'+TrelloBase.auth_tokens()
+    response= requests.get(url)
+    jsonResponse = response.json()
+    trello_list = TrelloList()
+    for item in jsonResponse:
+        trello_list.add(TrelloItem(item['id'],item['name'],item['idList']))
+    return trello_list
 
 def add_item(title):
     dolist_id = TrelloBase.get_todo_list_id()
