@@ -1,4 +1,6 @@
-from datetime import datetime
+from datetime import date, datetime
+
+
 from todo_app.trello.trello_base import TrelloBase
 
 class TrelloItem:
@@ -10,6 +12,7 @@ class TrelloItem:
         self._dateLastActivity = dateLastActivity
         self._status = status
         print(dateLastActivity)
+
 
   @property
   def id(self):
@@ -41,6 +44,8 @@ class TrelloItem:
 
   @property 
   def status(self):    
+  #  if self.status == None: Why this gives me a recursive error I would like to know I must bne being a **&
+  #    return "None"
     return self._status
 
   @status.setter 
@@ -67,18 +72,23 @@ class TrelloItem:
 
   @classmethod
   def isDoneToday(cls, trello_item):
-    datetime_today = datetime.now()
+    date_today = datetime.today().date()
     if trello_item.idList == TrelloBase.get_done_list_id():
-      if( trello_item.dateLastActivity.month == datetime_today.month and
-          trello_item.dateLastActivity.year == datetime_today.year and
-          trello_item.dateLastActivity.day == datetime_today.day):
+      if trello_item.dateLastActivity.date() == date_today:
         return True
     return False        
 
   @classmethod    
   def wasDoneBeforeToday(cls, trello_item):
-    return not cls.isDoneToday(trello_item)
+    date_today = datetime.today().date()
+    if trello_item.idList == TrelloBase.get_done_list_id():
+      if trello_item.dateLastActivity.date() < date_today:
+        return True
+    return False    
     
+  @property 
+  def info(self):
+    return str(self.id)+','+self.title+','+str(self.idList)+','+str(self.dateLastActivity)#+","+self.status
 
 
 

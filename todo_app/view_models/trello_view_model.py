@@ -26,11 +26,11 @@ class TrelloViewModel:
     def get_doing_items(self):
         return self.filter_items(TrelloItem.isDoing)
 
-    def get_done_items(self):
+    def show_all_done_items(self):
         return self.filter_items(TrelloItem.isDone)       
 
-    def get_items_done_today(self):
+    def recent_done_items(self):
        return self.filter_items(TrelloItem.isDoneToday)       
 
-    def get_items_done_before_today(self):        
+    def older_done_items(self):        
         return self.filter_items(TrelloItem.wasDoneBeforeToday)  

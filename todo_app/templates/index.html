@@ -1,5 +1,4 @@
-{% extends "layout.html" %} {% block title %}To-Do App{% endblock %} {% block
-content %}
+{% extends "layout.html" %} {% block title %}To-Do App{% endblock %} {% block content %}
 <div class="jumbotron">
   <h1 class="display-4">To-Do App</h1>
   <p class="lead">Just another to-do app.</p>
@@ -9,15 +8,40 @@ content %}
   <div class="col-md-12">
     <h2>Items</h2>
     <ul class="list-group mb-4">
-      
         <div class="form-group">
           <table style="width: 100%">
-            <tr>
-              {% for item in view_model.items.trello_items %}
-              <div> <!-- class="checkbox checkbox-warning checkbox-circle"> -->
-
-                {% if item.status == 'Not Started' %}
-                <tr>
+            <tr><td><h2>Done Items</h2></td></tr>
+             {% for item in view_model.show_all_done_items().trello_items %}
+             <tr>
+                <td>{{ item.title }}</td>
+                <td>
+                  <a href="{{ url_for('uncomplete_item', id=item.id ) }}"                  
+                  <button type="submit" class="btn btn-success" name="UnDo" >UnDo</button>
+                  </a>
+                  </td>
+            </tr>
+            {% endfor %}
+            <tr><td><h2>To Do Items</h2></td></tr>
+            {% for item in view_model.get_todo_items().trello_items %}
+              <tr>
+                  <td>{{ item.title }}</td>
+                  <td>
+                   <a href="{{ url_for('complete_item', id=item.id ) }}"                  
+                   <button type="button" class="btn btn-warning">Done</button>
+                   </a>
+                  </td>
+                  <td>
+                   <a href="{{ url_for('doing_item', id=item.id ) }}"                  
+                   <button type="button" class="btn btn-warning">Doing</button>
+                   </a>
+                  </td>
+                </tr>
+            {% endfor %}
+            
+            <div id="myDiv">
+            <tr><td><h2>Doing Items</h2><button onclick="myFunction()">Try it</button></td></tr>
+            {% for item in view_model.get_doing_items().trello_items %}
+              <tr>
                   <td>{{ item.title }}</td>
                   <td>
                    <a href="{{ url_for('complete_item', id=item.id ) }}"                  
@@ -25,16 +49,36 @@ content %}
                    </a>
                   </td>
                 </tr>
-                {% else %}
-                <tr>
+            {% endfor %}
+            </div>
+
+            <tr><td><h2>Recent Done Items</h2></td></tr>
+            {% for item in view_model.recent_done_items().trello_items %}
+              <tr>
                   <td>{{ item.title }}</td>
                   <td>
                   <a href="{{ url_for('uncomplete_item', id=item.id ) }}"                  
-                  <button type="submit" class="btn btn-success" name="UnDo" >UnDone</button>
-                  </a>
+                  <button type="submit" class="btn btn-success" name="UnDo" >UnDo</button></a>
                   </td>
                 </tr>
-               {% endif %} {% endfor %}
+            {% endfor %}
+            </div>
+
+            <tr><td><h2>Older Done Items</h2></td></tr>
+            {% for item in view_model.older_done_items().trello_items %}
+              <tr>
+                  <td>{{ item.title }}</td>
+                  <td>
+                  <a href="{{ url_for('uncomplete_item', id=item.id ) }}"                  
+                  <button type="submit" class="btn btn-success" name="UnDo" >UnDo</button></a>
+                  </td>
+                </tr>
+            {% endfor %}
+            </div>
+
+
+
+
               &nbsp;    
               <form action="add_todo_item" method="post" class="form-group">
               <tr>
@@ -56,5 +100,14 @@ content %}
     </ul>
   </div>
 </div>
-
+<script>
+function myFunction() {
+  var x = document.getElementById("myDIV");
+  if (x.style.display === "none") {
+    x.style.display = "block";
+  } else {
+    x.style.display = "none";
+  }
+}
+</script>
 {% endblock %}

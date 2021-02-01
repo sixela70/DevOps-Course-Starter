@@ -10,6 +10,24 @@ DATE_FORMAT = '%Y-%m-%dT%H:%M:%S.%fz'
 class TrelloAPI:
 
     @classmethod
+    def create_trello_board(cls, name):
+        url = TrelloBase.base_address+'boards/'
+        query = TrelloBase.auth_tokens_obj()
+        query["name"] = name
+        response= requests.post(url,params = query)
+        print(response.text)
+        jsonResponse = response.json()
+        print (jsonResponse['id'])
+        return jsonResponse['id']
+
+    @classmethod
+    def delete_trello_board(cls, board_id):
+        url = TrelloBase.base_address+'boards/'+board_id
+        query = TrelloBase.auth_tokens_obj()
+        response= requests.delete(url,params = query)
+        return response.status_code
+        
+    @classmethod
     def to_trello_item(cls, item, status = None):
         return TrelloItem(item['id'],item['name'],item['idList'],datetime.strptime(item['dateLastActivity'], DATE_FORMAT),status)
 
@@ -51,6 +69,21 @@ class TrelloAPI:
         data["idList"] = dolist_id
         data["name"] =  title
         requests.post(url, data)
+
+    ## Move item to the other list 
+    @classmethod
+    def mark_item_doing(cls,item):
+        cls.markid_item_done(item['id'])
+
+    @classmethod 
+    def markid_item_doing(cls,id):
+        doing_list_id = TrelloBase.get_doing_list_id()
+        print(doing_list_id)
+        print('doing ')
+        url = TrelloBase.base_address+'/cards/'+id+'?'
+        data = TrelloBase.auth_tokens_obj()
+        data["idList"] = doing_list_id
+        requests.put(url, data)
 
     ## Move item to the other list 
     @classmethod

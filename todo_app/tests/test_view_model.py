@@ -32,22 +32,25 @@ def tvm() -> TrelloViewModel:
 
 
 def test_get_todo_items(tvm):
-    l = tvm.get_todo_items()
-    assert l.len == 2
+    trello_list = tvm.get_todo_items()
+    #items = trello_list.trello_items
+    #for item in items:
+    #    print(item.info)
+    assert trello_list.len == 2
 
 def test_get_doing_items(tvm):
     l = tvm.get_doing_items()
     assert l.len == 5
 
-def test_get_done_items(tvm):
-    l = tvm.get_done_items()
+def test_show_all_done_items(tvm):
+    l = tvm.show_all_done_items()
     assert l.len == 4
 
-def test_get_items_done_today(tvm):
-    l = tvm.get_items_done_today()
+def test_get_recent_done_items(tvm):
+    l = tvm.recent_done_items()
     assert l.len == 3
 
-def test_get_items_done_before_today(tvm):
-    l = tvm.get_items_done_before_today()
+def test_get_older_done_items(tvm):
+    l = tvm.older_done_items()
     assert l.len == 1
 

@@ -74,7 +74,7 @@ class TrelloBase:
         if TrelloBase.done_list_id is None:
             jsonResponse = TrelloBase.get_lists()
             for item in jsonResponse:
-                if item['name'] == 'DoingList':
+                if item['name'] == 'Doing':
                     TrelloBase.doing_list_id = item['id']
         return TrelloBase.doing_list_id            
 
