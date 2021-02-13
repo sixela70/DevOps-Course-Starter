@@ -18,7 +18,8 @@ class TrelloBase:
         TrelloBase.developer_api_key = os.environ['DEVELOPER_API_KEY']
         TrelloBase.my_secret = os.environ['MY_SECRET']
         TrelloBase.server_token = os.environ['SERVER_TOKEN']
-    
+        TrelloBase.board_id = os.environ['TRELLO_BOARD_ID']
+
     @classmethod
     def auth_tokens(cls):
         if TrelloBase.init == False:
@@ -71,7 +72,7 @@ class TrelloBase:
 
     @classmethod
     def get_doing_list_id(cls):
-        if TrelloBase.done_list_id is None:
+        if TrelloBase.doing_list_id is None:
             jsonResponse = TrelloBase.get_lists()
             for item in jsonResponse:
                 if item['name'] == 'Doing':

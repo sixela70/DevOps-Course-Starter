@@ -20,8 +20,8 @@ def client():
 #    response = client.get('/')
 
 
-def test_index_page(client):
-    response = client.get('/')
-    assert response != None
+#def test_index_page(client):
+#    response = client.get('/')
+#    assert response != None
 
 

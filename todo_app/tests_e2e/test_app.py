@@ -10,7 +10,7 @@ from threading import Thread
 @pytest.fixture(scope='module')
 def test_app():    
     # Create the new board and update the board id environment variable
-    TrelloBase.board_id  = TrelloAPI.create_trello_board("E2E test Board")
+    os.environ['TRELLO_BOARD_ID']  = TrelloAPI.create_trello_board("E2E test Board")
 
     # construct the new application                                                                                 
     application = create_app()
@@ -33,6 +33,14 @@ def driver():
 def test_task_journey(driver, test_app):
     driver.get('http://localhost:5000')
     assert driver.title == 'To-Do App'
+    element = driver.find_element_by_id("todo")
+    element.send_keys("e2e todo item")
+    driver.find_element_by_name("add_todo_item").click()
+    Thread.sleep(1000)
+    
+
+    
+
 
 #def test_create_new_item(driver, test_app):
 #    test_app
