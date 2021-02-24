@@ -5,14 +5,17 @@ content %}
 <a class="navbar-brand" href="/">To-Do App</a>  
 </nav> -->
 <div class="container">
-
   <div class="list_row">
     <div class="list" id="ToDo">
       <h2 class="list-header-name">To Do</h2>
       {% for item in view_model.get_todo_items().trello_items %}
       <div class="card_container">
-          <div class="card_text">{{ item.title }}&nbsp&nbsp</div>
-           <div class="card_button"><a href="{{ url_for('complete_item', id=item.id ) }}" <button type="button" class="btn btn-success">Done</button></a></div>
+        <div class="card_text">{{ item.title }}&nbsp&nbsp</div>
+        <div class="card_button">
+          <a href="{{ url_for('doing_item', id=item.id ) }}">
+            <button type="button" class="btn btn-success">Doing</button></a
+          >
+        </div>
       </div>
       {% endfor %}
     </div>
@@ -21,8 +24,12 @@ content %}
       <h2 class="list-header-name">Doing</h2>
       {% for item in view_model.get_doing_items().trello_items %}
       <div class="card_container">
-          <div class="card_text">{{ item.title }}&nbsp&nbsp</div>
-           <div class="card_button"><a href="{{ url_for('complete_item', id=item.id ) }}" <button type="button" class="btn btn-success">Done</button></a></div>
+        <div class="card_text">{{ item.title }}&nbsp&nbsp</div>
+        <div class="card_button">
+          <a href="{{ url_for('complete_item', id=item.id ) }}">
+            <button type="button" class="btn btn-success">Done</button></a
+          >
+        </div>
       </div>
       {% endfor %}
     </div>
@@ -31,37 +38,82 @@ content %}
       <h2 class="list-header-name">Done</h2>
       {% for item in view_model.show_all_done_items().trello_items %}
       <div class="card_container">
-          <div class="card_text">{{ item.title }}&nbsp&nbsp</div>
-           <div class="card_button"><a href="{{ url_for('uncomplete_item', id=item.id ) }}" <button type="button" class="btn btn-success">UnDo</button></a></div>
+        <div class="card_text">{{ item.title }}&nbsp&nbsp</div>
+        <div class="card_button">
+          <a href="{{ url_for('uncomplete_item', id=item.id ) }}">
+            <button type="button" class="btn btn-success">UnDo</button></a
+          >
+        </div>
       </div>
       {% endfor %}
     </div>
   </div>
 
- <p class=”text-clear”></p>
+  <p class="”text-clear”"></p>
 
   <div class="list_row">
-  
     <div class="list" id="RecentDoneItems">
       <h2 class="list-header-name">Recent Done Items</h2>
       {% for item in view_model.recent_done_items().trello_items %}
       <div class="card_container">
-          <div class="card_text">{{ item.title }}&nbsp&nbsp</div>
+        <div class="card_text">{{ item.title }}&nbsp&nbsp</div>
+        <div class="card_button">
+          <a href="{{ url_for('uncomplete_item', id=item.id ) }}">
+            <button type="button" class="btn btn-success">UnDo</button></a
+          >
+        </div>
       </div>
       {% endfor %}
     </div>
-  
 
     <div class="list" id="OlderDoneItems">
       <h2 class="list-header-name">Older Done Items</h2>
       {% for item in view_model.older_done_items().trello_items %}
       <div class="card_container">
-          <div class="card_text">{{ item.title }}&nbsp&nbsp</div>
+        <div class="card_text">{{ item.title }}&nbsp&nbsp</div>
+        <div class="card_button">
+          <a href="{{ url_for('uncomplete_item', id=item.id ) }}"
+            ><button type="button" class="btn btn-success">UnDo</button></a
+          >
+        </div>
       </div>
       {% endfor %}
     </div>
   </div>
 
+  <div class="list_row">
+    <div id="AddItem">
+      <h2 class="list-header-name">Add Item</h2>
+    </div>
+    &nbsp;
+
+    <form action="add_todo_item" method="post" class="form-group">
+      <table>
+        <tr>
+          <td>
+            <input
+              type="text"
+              class="form-control"
+              id="add_todo_text_box"
+              name="new_todo_item"
+              placeholder="Enter New To Do Item"
+            />
+          </td>
+          <td>
+            <button
+              type="submit"
+              class="btn btn-warning"
+              id="add_todo_button"
+              name="add_todo_item"
+            >
+              Add New Item
+            </button>
+          </td>
+        </tr>
+      </table>
+    </form>
+    &nbsp;
+  </div>
 </div>
 
 {% endblock %}
