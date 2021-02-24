@@ -36,7 +36,8 @@ def test_task_journey(driver, test_app):
     element = driver.find_element_by_id("todo")
     element.send_keys("e2e todo item")
     driver.find_element_by_name("add_todo_item").click()
-    Thread.sleep(1000)
+    driver.
+    #Thread.sleep(1000)
     
 
     

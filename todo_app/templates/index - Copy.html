@@ -1,0 +1,157 @@
+{% extends "layout.html" %} {% block title %}To-Do App{% endblock %} {% block content %}
+<div class="jumbotron">
+  <h1 class="display-4">To-Do App</h1>
+  <p class="lead">Just another to-do app.</p>
+</div>
+
+
+
+<div class="list">
+<h2 class="list-header-name" dir="auto">ToDo Items</h2>
+
+
+<div class="card">
+<ul>
+{% for item in view_model.get_todo_items().trello_items %}
+<li>{{ item.title }}</li>
+{% endfor %}
+</ul>
+
+               <tr>
+                  <td>{{ item.title }}</td>
+                  <td>
+                   <a href="{{ url_for('complete_item', id=item.id ) }}"                  
+                   <button type="button" class="btn btn-warning">Done</button>
+                   </a>
+                  </td>
+                  <td>
+                   <a href="{{ url_for('doing_item', id=item.id ) }}"                  
+                   <button type="button" class="btn btn-warning">Doing</button>
+                   </a>
+                  </td>
+                </tr>
+            
+
+
+
+<textarea
+                                   
+                                    aria-label="Orange"
+                                    spellcheck="false"
+                                    dir="auto"
+                                    maxlength="512"
+                                    style="
+                                      overflow: hidden;
+                                      overflow-wrap: break-word;
+                                      height: 28px;
+                                    "
+                                  >
+
+
+<div class="row">
+  <div class="col-md-12">
+    <h2>Items</h2>
+    <ul class="list-group mb-4">
+        <div class="form-group">
+          <table style="width: 100%">
+            <tr><td><h2>Done Items</h2></td></tr>
+             {% for item in view_model.show_all_done_items().trello_items %}
+             <tr>
+                <td>{{ item.title }}</td>
+                <td>
+                  <a href="{{ url_for('uncomplete_item', id=item.id ) }}"                  
+                  <button type="submit" class="btn btn-success" name="UnDo" >UnDo</button>
+                  </a>
+                  </td>
+            </tr>
+            {% endfor %}
+            <tr><td><h2>To Do Items</h2></td></tr>
+            {% for item in view_model.get_todo_items().trello_items %}
+              <tr>
+                  <td>{{ item.title }}</td>
+                  <td>
+                   <a href="{{ url_for('complete_item', id=item.id ) }}"                  
+                   <button type="button" class="btn btn-warning">Done</button>
+                   </a>
+                  </td>
+                  <td>
+                   <a href="{{ url_for('doing_item', id=item.id ) }}"                  
+                   <button type="button" class="btn btn-warning">Doing</button>
+                   </a>
+                  </td>
+                </tr>
+            {% endfor %}
+            
+            <div id="myDiv">
+            <tr><td><h2>Doing Items</h2><button onclick="myFunction()">Try it</button></td></tr>
+            {% for item in view_model.get_doing_items().trello_items %}
+              <tr>
+                  <td>{{ item.title }}</td>
+                  <td>
+                   <a href="{{ url_for('complete_item', id=item.id ) }}"                  
+                   <button type="button" class="btn btn-warning">Done</button>
+                   </a>
+                  </td>
+                </tr>
+            {% endfor %}
+            </div>
+
+            <tr><td><h2>Recent Done Items</h2></td></tr>
+            {% for item in view_model.recent_done_items().trello_items %}
+              <tr>
+                  <td>{{ item.title }}</td>
+                  <td>
+                  <a href="{{ url_for('uncomplete_item', id=item.id ) }}"                  
+                  <button type="submit" class="btn btn-success" name="UnDo" >UnDo</button></a>
+                  </td>
+                </tr>
+            {% endfor %}
+            </div>
+
+            <tr><td><h2>Older Done Items</h2></td></tr>
+            {% for item in view_model.older_done_items().trello_items %}
+              <tr>
+                  <td>{{ item.title }}</td>
+                  <td>
+                  <a href="{{ url_for('uncomplete_item', id=item.id ) }}"                  
+                  <button type="submit" class="btn btn-success" name="UnDo" >UnDo</button></a>
+                  </td>
+                </tr>
+            {% endfor %}
+            </div>
+
+
+
+
+              &nbsp;    
+              <form action="add_todo_item" method="post" class="form-group">
+              <tr>
+                <td>
+                <input type="text" class="form-control" id="todo" name="new_todo_item"placeholder="Enter New To Do Item"/>    
+                </td>
+                <td>
+                  <button type="submit" class="btn btn-warning" name="add_todo_item">Add New Item</button>
+                </td>
+                </tr>
+                </div>
+            </tr>
+            </form>
+          </table>
+          &nbsp;
+          <br />
+        </div>
+      
+    </ul>
+  </div>
+</div>
+<script>
+function myFunction() {
+  var x = document.getElementById("myDIV");
+  if (x.style.display === "none") {
+    x.style.display = "block";
+  } else {
+    x.style.display = "none";
+  }
+}
+</script>
+{% endblock %}
