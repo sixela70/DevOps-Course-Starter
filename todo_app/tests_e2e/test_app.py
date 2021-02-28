@@ -33,6 +33,7 @@ def driver():
 def test_task_journey(driver, test_app):
     new_todo_item = "e2e todo item"
     driver.get('http://localhost:5000')
+    
     assert driver.title == 'To-Do App'
     element = driver.find_element_by_id("todo_text_box")
     element.send_keys(new_todo_item)

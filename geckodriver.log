@@ -62,3 +62,17 @@ console.warn: SearchSettings: "get: No settings file exists, new profile?" (new 
 console.warn: SearchSettings: "get: No settings file exists, new profile?" (new Error("", "(unknown module)"))
 1613234892634	Marionette	WARN	TLS certificate errors will be ignored for this session
 1613234892649	Marionette	ERROR	[15] No reply from Marionette:Register
+1614174053552	geckodriver	INFO	Listening on 127.0.0.1:14012
+1614174056595	mozrunner::runner	INFO	Running command: "C:\\Program Files\\Mozilla Firefox\\firefox.exe" "--marionette" "-foreground" "-no-remote" "-profile" "C:\\Users\\ALEXIS~1.HOU\\AppData\\Local\\Temp\\rust_mozprofilesNByfe"
+1614180143023	geckodriver	INFO	Listening on 127.0.0.1:17653
+1614180146058	mozrunner::runner	INFO	Running command: "C:\\Program Files\\Mozilla Firefox\\firefox.exe" "--marionette" "-foreground" "-no-remote" "-profile" "C:\\Users\\ALEXIS~1.HOU\\AppData\\Local\\Temp\\rust_mozprofile6zdzYE"
+console.warn: SearchSettings: "get: No settings file exists, new profile?" (new Error("", "(unknown module)"))
+console.warn: SearchSettings: "get: No settings file exists, new profile?" (new Error("", "(unknown module)"))
+1614180149513	Marionette	INFO	Listening on port 17662
+1614180149759	Marionette	WARN	TLS certificate errors will be ignored for this session
+1614180149772	Marionette	ERROR	[15] No reply from Marionette:Register
+JavaScript error: https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js, line 6: Error: Bootstrap's JavaScript requires at least jQuery v1.9.1 but less than v4.0.0
+console.log: WebExtensions: reset-default-search: No addons in our list are installed.
+JavaScript error: , line 0: NS_ERROR_NOT_AVAILABLE
+JavaScript error: , line 0: NS_ERROR_NOT_AVAILABLE
+JavaScript error: , line 0: NS_ERROR_NOT_AVAILABLE
