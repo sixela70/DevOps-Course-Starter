@@ -35,20 +35,26 @@ def test_task_journey(driver, test_app):
     driver.get('http://localhost:5000')
     
     assert driver.title == 'To-Do App'
-    element = driver.find_element_by_id("todo_text_box")
+    element = driver.find_element_by_id("add_todo_text_box")
+    
     element.send_keys(new_todo_item)
     driver.find_element_by_id("add_todo_button").click()
 
     # Check new to do item has appeared.
+    xpath = "//*[@id='ToDo']//*[@class='card_container']//*[@class='card_text' and text()='"+new_todo_item+"']"
     new_to_do = driver.find_element_by_xpath("//*[@id='ToDo']//*[@class='card_container']//*[@class='card_text' and text()='"+new_todo_item+"']")
+    
     # Now click the button for the item
-    move_to_doing_button = driver.find_element_by_xpath("//*[@id='ToDo']//*[@class='card_container']//*[@class='card_text' and text()='"+new_todo_item+"']/following-sibling::div/a/@href")
+    move_to_doing_button = driver.find_element_by_xpath("//*[@id='ToDo']//*[@class='card_container']//*[@class='card_text' and text()='"+new_todo_item+"']/following-sibling::div/a/button")
     move_to_doing_button.click()
+
     # See if item now appears in Doing List
     new_doing_item = driver.find_element_by_xpath("//*[@id='Doing']//*[@class='card_container']//*[@class='card_text' and text()='"+new_todo_item+"']")
+
     # Now click the button for the item to moove to done
-    move_to_done_button = driver.find_element_by_xpath("//*[@id='Doing']//*[@class='card_container']//*[@class='card_text' and text()='"+new_todo_item+"']/following-sibling::div/a/@href")
+    move_to_done_button = driver.find_element_by_xpath("//*[@id='Doing']//*[@class='card_container']//*[@class='card_text' and text()='"+new_todo_item+"']/following-sibling::div/a/button")
     move_to_done_button.click()
+
     # See if item now appears in Done List
     new_done_item = driver.find_element_by_xpath("//*[@id='Done']//*[@class='card_container']//*[@class='card_text' and text()='"+new_todo_item+"']")
 

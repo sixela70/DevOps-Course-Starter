@@ -10,7 +10,7 @@ content %}
       <h2 class="list-header-name">To Do</h2>
       {% for item in view_model.get_todo_items().trello_items %}
       <div class="card_container">
-        <div class="card_text">{{ item.title }}&nbsp&nbsp</div>
+        <div class="card_text">{{ item.title }}</div>
         <div class="card_button">
           <a href="{{ url_for('doing_item', id=item.id ) }}">
             <button type="button" class="btn btn-success">Doing</button></a
@@ -24,7 +24,7 @@ content %}
       <h2 class="list-header-name">Doing</h2>
       {% for item in view_model.get_doing_items().trello_items %}
       <div class="card_container">
-        <div class="card_text">{{ item.title }}&nbsp&nbsp</div>
+        <div class="card_text">{{ item.title }}</div>
         <div class="card_button">
           <a href="{{ url_for('complete_item', id=item.id ) }}">
             <button type="button" class="btn btn-success">Done</button></a
@@ -38,7 +38,7 @@ content %}
       <h2 class="list-header-name">Done</h2>
       {% for item in view_model.show_all_done_items().trello_items %}
       <div class="card_container">
-        <div class="card_text">{{ item.title }}&nbsp&nbsp</div>
+        <div class="card_text">{{ item.title }}</div>
         <div class="card_button">
           <a href="{{ url_for('uncomplete_item', id=item.id ) }}">
             <button type="button" class="btn btn-success">UnDo</button></a
@@ -56,7 +56,7 @@ content %}
       <h2 class="list-header-name">Recent Done Items</h2>
       {% for item in view_model.recent_done_items().trello_items %}
       <div class="card_container">
-        <div class="card_text">{{ item.title }}&nbsp&nbsp</div>
+        <div class="card_text">{{ item.title }}</div>
         <div class="card_button">
           <a href="{{ url_for('uncomplete_item', id=item.id ) }}">
             <button type="button" class="btn btn-success">UnDo</button></a
@@ -70,7 +70,7 @@ content %}
       <h2 class="list-header-name">Older Done Items</h2>
       {% for item in view_model.older_done_items().trello_items %}
       <div class="card_container">
-        <div class="card_text">{{ item.title }}&nbsp&nbsp</div>
+        <div class="card_text">{{ item.title }}</div>
         <div class="card_button">
           <a href="{{ url_for('uncomplete_item', id=item.id ) }}"
             ><button type="button" class="btn btn-success">UnDo</button></a
