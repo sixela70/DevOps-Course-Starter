@@ -1,4 +1,3 @@
-
 import requests
 from datetime import datetime
 from todo_app.trello.trello_list import TrelloList
