@@ -39,8 +39,6 @@ DEVELOPER_API_KEY="<your key>"
 MY_SECRET="<your secret>"
 SERVER_TOKEN="<your token>"
 
-
-
 ## Running the App
 
 Once the all dependencies have been installed, start t he Flask app in development mode within the poetry environment by running:
@@ -74,3 +72,13 @@ C:\devops\DevOps-Course-Starter>poetry run flask run
 
 
 Now visit [`http://localhost:5000/`](http://localhost:5000/) in your web browser to view the app.
+
+End to End Tests
+
+To run the end to end tests you will need 
+
+1. To ensure the GeckoDrive.exe is downloaded and placed in the root of your project 
+2. To Install the Firefox Browers as this is the driver that the code is referencing 
+
+
+
