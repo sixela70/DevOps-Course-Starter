@@ -11,8 +11,6 @@ class TrelloItem:
         self._idList = idList
         self._dateLastActivity = dateLastActivity
         self._status = status
-        print(dateLastActivity)
-
 
   @property
   def id(self):

@@ -1,6 +1,13 @@
 import pytest
 import requests
+
+from lxml import html
+from todo_app.trello.trello_base import TrelloBase
+from todo_app.trello.trello_list import TrelloList
+from todo_app.trello.trello_item import TrelloItem
 from todo_app.trello.trello_api import TrelloAPI
+
+from datetime import datetime, timedelta
 from dotenv import load_dotenv, find_dotenv
 from todo_app.app import create_app
 
@@ -14,18 +21,9 @@ def client():
     with test_app.test_client() as client:
         yield client
 
+def test_index_page(monkeypatch, client):
 
-# I think this is what I am being asked to do 
-# So we need to mock the response from Trello for our initial page load. 
-# Best way to do this is to grab the actual json returned from our trello request save it an inject it. 
-
-# So I want to replace my TrelloAPI with a MOCK TrelloAPI that reutrnsd static values 
-
-
-class TrelloAPIMockResponse:
-
-    @staticmethod 
-    def get_all_trello_items():
+    def mock_get_all_trello_items():
         TrelloBase.todo_list_id = 1
         TrelloBase.done_list_id = 2
         TrelloBase.doing_list_id = 3
@@ -47,26 +45,12 @@ class TrelloAPIMockResponse:
         trello_list.add(TrelloItem(65,'Get Piper 5',TrelloBase.get_doing_list_id(),datetime.now()))
         return trello_list
 
-
-#monkeypatch 
-#@pytest.fixture
-
-
-#def mock_get_request():
-
-def test_index_page(monkeypatch, client):
-
-    def mock_get_all_trello_items(*args, **kwargs):
-        return TrelloAPIMockResponse()
-
     monkeypatch.setattr(TrelloAPI,"get_all_trello_items", mock_get_all_trello_items)
     
     response = client.get('/')
+    assert response.status_code == 200
+    tree = html.fromstring(response.data)
+    items = tree.xpath('.//div[@class="card_text"]/text()')
+    assert ( len(items) == 15 )
     
-
-
-#def test_index_page(client):
-#    response = client.get('/')
-#    assert response != None
-
 

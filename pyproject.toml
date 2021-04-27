@@ -13,6 +13,7 @@ requests = "^2.25.0"
 [tool.poetry.dev-dependencies]
 pytest = "^6.2.3"
 selenium = "^3.141.0"
+lxml = "^4.6.3"
 
 [build-system]
 requires = ["poetry>=0.12"]

@@ -14,9 +14,7 @@ class TrelloAPI:
         query = TrelloBase.auth_tokens_obj()
         query["name"] = name
         response= requests.post(url,params = query)
-        print(response.text)
         jsonResponse = response.json()
-        print (jsonResponse['id'])
         return jsonResponse['id']
 
     @classmethod
@@ -54,9 +52,7 @@ class TrelloAPI:
     def get_all_trello_items(cls):
         url = TrelloBase.base_address+'boards/'+TrelloBase.get_board_id()+'/cards?fields=id,idList,name,dateLastActivity'+TrelloBase.auth_tokens()
         response= requests.get(url)
-        print(response)
         jsonResponse = response.json()
-        print(jsonResponse)
         trello_list = TrelloList()
         for item in jsonResponse:
             trello_list.add(cls.to_trello_item(item))
@@ -79,8 +75,6 @@ class TrelloAPI:
     @classmethod 
     def markid_item_doing(cls,id):
         doing_list_id = TrelloBase.get_doing_list_id()
-        print(doing_list_id)
-        print('doing ')
         url = TrelloBase.base_address+'/cards/'+id+'?'
         data = TrelloBase.auth_tokens_obj()
         data["idList"] = doing_list_id

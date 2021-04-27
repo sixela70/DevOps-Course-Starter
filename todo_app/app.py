@@ -5,7 +5,6 @@ from todo_app.view_models.trello_view_model import TrelloViewModel
 
 def create_app():
     app = Flask(__name__, template_folder="templates")
-    print('Some output')
     #app.config.from_object('app_config.Config')
 
     @app.route("/", methods=['GET', 'POST'])
