@@ -54,7 +54,9 @@ class TrelloAPI:
     def get_all_trello_items(cls):
         url = TrelloBase.base_address+'boards/'+TrelloBase.get_board_id()+'/cards?fields=id,idList,name,dateLastActivity'+TrelloBase.auth_tokens()
         response= requests.get(url)
+        print(response)
         jsonResponse = response.json()
+        print(jsonResponse)
         trello_list = TrelloList()
         for item in jsonResponse:
             trello_list.add(cls.to_trello_item(item))

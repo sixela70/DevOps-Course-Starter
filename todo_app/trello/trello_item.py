@@ -44,8 +44,6 @@ class TrelloItem:
 
   @property 
   def status(self):    
-  #  if self.status == None: Why this gives me a recursive error I would like to know I must bne being a **&
-  #    return "None"
     return self._status
 
   @status.setter 

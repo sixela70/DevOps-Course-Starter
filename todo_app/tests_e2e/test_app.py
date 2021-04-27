@@ -29,12 +29,12 @@ def test_app():
 
     #Tear Down
     thread.join(1)
-    TrelloAPI.delete_trello_board(TrelloBase.board_id)
+    TrelloAPI.delete_trello_board( os.environ['TRELLO_BOARD_ID'] )
 
 @pytest.fixture(scope='module')
 def driver():
-    driver = webdriver.Firefox() 
-    yield driver
+    with webdriver.Firefox() as driver:
+        yield driver
 
 def test_task_journey(driver, test_app):
     new_todo_item = "e2e todo item"
@@ -46,7 +46,7 @@ def test_task_journey(driver, test_app):
     element.send_keys(new_todo_item)
     driver.find_element_by_id("add_todo_button").click()
 
-    
+
     # Check new to do item has appeared.
     xpath = "//*[@id='ToDo']//*[@class='card_container']//*[@class='card_text' and text()='"+new_todo_item+"']"
     new_to_do = driver.find_element_by_xpath("//*[@id='ToDo']//*[@class='card_container']//*[@class='card_text' and text()='"+new_todo_item+"']")
