@@ -13,3 +13,6 @@ class TrelloList:
     def trello_items(self):
         return self._items 
 
+    @property
+    def len(self):
+        return len(self._items)

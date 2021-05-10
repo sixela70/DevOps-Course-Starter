@@ -118,5 +118,8 @@ env/
 
 ### Configuration files ###
 .env
+.vagrant
 
-
+#geckodriver
+geckodriver.log
+geckodriver.exe
