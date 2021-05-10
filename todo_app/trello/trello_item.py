@@ -1,16 +1,11 @@
-from datetime import date, datetime
-
-
-from todo_app.trello.trello_base import TrelloBase
-
 class TrelloItem:
 
-  def __init__(self, id, title, idList, dateLastActivity, status = None):     
+  def __init__(self, id, title, status):     
         self._id = id
         self._title = title
-        self._idList = idList
-        self._dateLastActivity = dateLastActivity
         self._status = status
+        print(dateLastActivity)
+
 
   @property
   def id(self):
@@ -29,32 +24,16 @@ class TrelloItem:
      self._title = value
 
   @property 
-  def idList(self):
-    return self._idList
-
-  @property 
-  def dateLastActivity(self) -> datetime:     
-    return self._dateLastActivity
-
-  @dateLastActivity.setter 
-  def status(self,value):    
-    self._dateLastActivity = value
-
-  @property 
   def status(self):    
+  #  if self.status == None: Why this gives me a recursive error I would like to know I must bne being a **&
+  #    return "None"
     return self._status
 
   @status.setter 
   def status(self,value):    
     self._status = value
 
-
-  def MethodisToDo(self):
-    if self.idList == TrelloBase.get_todo_list_id():
-        return True
-    return False
-
-
+<<<<<<< HEAD
   @classmethod
   def isToDo(cls, trello_item):
     if trello_item.idList == TrelloBase.get_todo_list_id():
@@ -100,4 +79,6 @@ class TrelloItem:
 
 
 
+=======
+>>>>>>> parent of 1cf02dc (Merge from exercise-3)
 

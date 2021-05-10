@@ -21,9 +21,6 @@ class TrelloViewModel:
         return l
 
     def get_todo_items(self):
-        return self.filter_items(TrelloItem.MethodisToDo)
-
-    def get_todo_items(self):
         return self.filter_items(TrelloItem.isToDo)
 
     def get_doing_items(self):

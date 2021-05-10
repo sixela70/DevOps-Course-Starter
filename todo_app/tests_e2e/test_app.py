@@ -4,17 +4,11 @@ import os
 from todo_app.app import create_app
 from todo_app.trello.trello_api import TrelloAPI
 from todo_app.trello.trello_api import TrelloBase
-from dotenv import load_dotenv, find_dotenv
 from selenium import webdriver
 from threading import Thread
 
 @pytest.fixture(scope='module')
 def test_app():    
-
-    # This e2e test requires actual access to Trello 
-    file_path = find_dotenv('.env')
-    load_dotenv(file_path, override=True)
-
     # Create the new board and update the board id environment variable
     os.environ['TRELLO_BOARD_ID']  = TrelloAPI.create_trello_board("E2E test Board")
 
@@ -29,12 +23,12 @@ def test_app():
 
     #Tear Down
     thread.join(1)
-    TrelloAPI.delete_trello_board( os.environ['TRELLO_BOARD_ID'] )
+    TrelloAPI.delete_trello_board(TrelloBase.board_id)
 
 @pytest.fixture(scope='module')
 def driver():
-    with webdriver.Firefox() as driver:
-        yield driver
+    driver = webdriver.Firefox() 
+    yield driver
 
 def test_task_journey(driver, test_app):
     new_todo_item = "e2e todo item"
@@ -45,7 +39,6 @@ def test_task_journey(driver, test_app):
     
     element.send_keys(new_todo_item)
     driver.find_element_by_id("add_todo_button").click()
-
 
     # Check new to do item has appeared.
     xpath = "//*[@id='ToDo']//*[@class='card_container']//*[@class='card_text' and text()='"+new_todo_item+"']"

@@ -1,8 +1,6 @@
 {
-    "python.testing.pytestArgs": [
-        "."
-    ],
-    "python.testing.unittestEnabled": false,
-    "python.testing.nosetestsEnabled": false,
-    "python.testing.pytestEnabled": true
+<<<<<<< HEAD
+=======
+    "python.pythonPath": ".venv\\Scripts\\python.exe"
+>>>>>>> parent of 1cf02dc (Merge from exercise-3)
 }
