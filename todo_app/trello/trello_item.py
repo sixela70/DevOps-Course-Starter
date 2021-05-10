@@ -48,6 +48,13 @@ class TrelloItem:
   def status(self,value):    
     self._status = value
 
+
+  def MethodisToDo(self):
+    if self.idList == TrelloBase.get_todo_list_id():
+        return True
+    return False
+
+
   @classmethod
   def isToDo(cls, trello_item):
     if trello_item.idList == TrelloBase.get_todo_list_id():

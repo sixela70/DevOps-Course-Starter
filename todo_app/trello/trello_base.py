@@ -8,6 +8,7 @@ class TrelloBase:
     my_secret = "a secret"
     server_token = "a token"
     base_address="https://api.trello.com/1/"
+    
     board_id = None
     todo_list_id = None
     done_list_id = None

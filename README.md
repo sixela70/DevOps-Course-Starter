@@ -74,7 +74,9 @@ C:\devops\DevOps-Course-Starter>poetry run flask run
 Now visit [`http://localhost:5000/`](http://localhost:5000/) in your web browser to view the app.
 
 Testing 
-The application NEEDS a trello board called ToDo case sensitive 
+
+1. The application NEEDS a trello board called ToDo case sensitive 
+2. To run the unit tests >> poetry run pytest todo_app/tests
 
 End to End Tests
 
@@ -83,6 +85,7 @@ To run the end to end tests you will need
 1. To ensure the GeckoDrive.exe is downloaded and placed in the root of your project 
 2. To Install the Firefox Browers as this is the driver that the code is referencing 
 3. The e2e tests create a new board called E2E test Board, which will be destroyed at the end of the test. 
+4. To run the e2e tests >> poetry run pytest todo_app/tests_e2e
 
 
 
