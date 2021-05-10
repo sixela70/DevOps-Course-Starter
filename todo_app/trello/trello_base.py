@@ -8,6 +8,7 @@ class TrelloBase:
     my_secret = "a secret"
     server_token = "a token"
     base_address="https://api.trello.com/1/"
+    
     board_id = None
     todo_list_id = None
     done_list_id = None
@@ -45,7 +46,6 @@ class TrelloBase:
             url = 'https://api.trello.com/1/members/me/boards?fields=id,name'+TrelloBase.auth_tokens()
             response= requests.get(url)
             jsonResponse = response.json()
-            print(jsonResponse)
             for item in jsonResponse:
                 if item['name'] == 'ToDo':
                     TrelloBase.board_id = item['id']

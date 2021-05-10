@@ -121,6 +121,7 @@ env/
 
 #geckodriver
 geckodriver.log
+geckodriver.exe
 
 #Vagrant
 .vagrant

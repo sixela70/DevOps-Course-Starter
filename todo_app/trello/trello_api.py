@@ -1,4 +1,3 @@
-
 import requests
 from datetime import datetime
 from todo_app.trello.trello_list import TrelloList
@@ -15,9 +14,7 @@ class TrelloAPI:
         query = TrelloBase.auth_tokens_obj()
         query["name"] = name
         response= requests.post(url,params = query)
-        print(response.text)
         jsonResponse = response.json()
-        print (jsonResponse['id'])
         return jsonResponse['id']
 
     @classmethod
@@ -78,8 +75,6 @@ class TrelloAPI:
     @classmethod 
     def markid_item_doing(cls,id):
         doing_list_id = TrelloBase.get_doing_list_id()
-        print(doing_list_id)
-        print('doing ')
         url = TrelloBase.base_address+'/cards/'+id+'?'
         data = TrelloBase.auth_tokens_obj()
         data["idList"] = doing_list_id

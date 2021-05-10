@@ -11,8 +11,6 @@ class TrelloItem:
         self._idList = idList
         self._dateLastActivity = dateLastActivity
         self._status = status
-        print(dateLastActivity)
-
 
   @property
   def id(self):
@@ -44,13 +42,18 @@ class TrelloItem:
 
   @property 
   def status(self):    
-  #  if self.status == None: Why this gives me a recursive error I would like to know I must bne being a **&
-  #    return "None"
     return self._status
 
   @status.setter 
   def status(self,value):    
     self._status = value
+
+
+  def MethodisToDo(self):
+    if self.idList == TrelloBase.get_todo_list_id():
+        return True
+    return False
+
 
   @classmethod
   def isToDo(cls, trello_item):
