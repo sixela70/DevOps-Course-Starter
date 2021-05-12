@@ -19,8 +19,8 @@ RUN curl -sSL https://raw.githubusercontent.com/python-poetry/poetry/master/get-
 
 WORKDIR /my-work-dir
 
-COPY todo_app ./my-work_dir
-COPY pyproject.toml poetry.lock .env ./
+COPY todo_app ./todo_app
+COPY pyproject.toml poetry.toml poetry.lock .env ./
 
 RUN poetry install 
 
@@ -30,4 +30,10 @@ FROM base as development
 
 # Setup run command 
 CMD [ "poetry", "run", "flask", "run", "--host=0.0.0.0"]
+#CMD [ "echo", "hello world"]
+
+#ENTRYPOINT poetry run flask run --host=0.0.0.0 
+#--port=5000
+#EXPOSE 5000
+#ENTRYPOINT top -b
 
