@@ -1,0 +1,13 @@
+.github
+.pytest_cache
+.vagrant
+.env
+.env.template
+.env.test
+.gitignore
+.vscode
+geckodriver
+geckodriver.org
+vagrant_provision_script.sh
+vagrant_trigger_script.sh
+Vagrantfile

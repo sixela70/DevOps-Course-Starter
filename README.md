@@ -88,4 +88,12 @@ To run the end to end tests you will need
 4. To run the e2e tests >> poetry run pytest todo_app/tests_e2e
 
 
+To build the docker images run the below 
+build --target development --tag todo-app:dev .
+build --target production --tag todo-app:prod .
 
+To run the docker images 
+docker run --env-file <env_file> -dp 5000:5000 todo-app:dev
+docker run --env-file <env_file> -dp 8000:8000 todo-app:prod
+
+The env_file should conform to the .env.template in the project
