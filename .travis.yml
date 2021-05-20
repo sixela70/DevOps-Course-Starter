@@ -1,2 +1,3 @@
 script:
-- echo "hello world
+- echo "Starting script section"
+- docker build --target production -tag todo-app/production .
