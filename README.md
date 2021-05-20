@@ -74,3 +74,72 @@ C:\devops\DevOps-Course-Starter>poetry run flask run
 
 
 Now visit [`http://localhost:5000/`](http://localhost:5000/) in your web browser to view the app.
+
+Testing 
+
+1. The application NEEDS a trello board called ToDo case sensitive 
+2. To run the unit tests >> poetry run pytest todo_app/tests
+
+End to End Tests
+
+To run the end to end tests you will need 
+
+1. To ensure the GeckoDrive.exe is downloaded and placed in the root of your project 
+2. To Install the Firefox Browers as this is the driver that the code is referencing 
+3. The e2e tests create a new board called E2E test Board, which will be destroyed at the end of the test. 
+4. To run the e2e tests >> poetry run pytest todo_app/tests_e2e
+
+
+Running within Vagrant VM
+
+This project runs Vagrant on Hyper-V please follow these instructions for setup https://techcommunity.microsoft.com/t5/virtualization/vagrant-and-hyper-v-tips-and-tricks/ba-p/382373
+
+Within the root directory of the project open a powershell window as Administrator and execute the following commands;
+
+vagrant up
+
+You will see the below, you see in the below the allocated IP address you can access the application using this IP address (172.20.214.27:5000) 
+During startup you will be prompte for your windows username and password so that vagrant can mount the share. 
+
+C:\DevOps-Course-Starter [exercise-4 ↑1 +0 ~1 -0 !]> vagrant up
+Bringing machine 'default' up with 'hyperv' provider...
+==> default: Verifying Hyper-V is enabled...
+==> default: Verifying Hyper-V is accessible...
+    default: Configuring the VM...
+    default: Setting VM Enhanced session transport type to disabled/default (VMBus)
+
+Vagrant requires administrator access for pruning SMB shares and
+may request access to complete removal of stale shares.
+==> default: Starting the machine...
+==> default: Waiting for the machine to report its IP address...
+    default: Timeout: 120 seconds
+    default: IP: 172.20.214.27
+==> default: Waiting for machine to boot. This may take a few minutes...
+    default: SSH address: 172.20.214.27:22
+    default: SSH username: vagrant
+    default: SSH auth method: private key
+==> default: Machine booted and ready!
+==> default: Preparing SMB shared folders...
+    default: You will be asked for the username and password to use for the SMB
+    default: folders shortly. Please use the proper username/password of your
+    default: account.
+    default:
+    default: Username (user[@domain]): alexis
+    default: Password (will be hidden):
+
+Vagrant requires administrator access to create SMB shares and
+may request access to complete setup of configured shares.
+==> default: Mounting SMB shared folders...
+    default: C:/Google Drive/DevOps/DevOps-Course-Starter => /vagrant
+==> default: Machine already provisioned. Run `vagrant provision` or use the `--provision`
+==> default: flag to force provisioning. Provisioners marked to run always will still run.
+==> default: Running action triggers after up ...
+==> default: Running trigger: Launching App...
+==> default: Running the TODO app setup script
+    default: Running: C:/Users/alexi/AppData/Local/Temp/vagrant-shell20210520-2100-1x5is6x.sh
+    default: Installing dependencies from lock file
+    default: No dependencies to install or update
+    default: Installing the current project: todo-app (0.1.0)
+C:\DevOps-Course-Starter [exercise-4 ↑1 +0 ~1 -0 !]>
+
+

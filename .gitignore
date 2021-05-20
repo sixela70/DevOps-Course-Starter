@@ -119,12 +119,12 @@ env/
 ### Configuration files ###
 .env
 
-<<<<<<< HEAD
+
 #geckodriver
 geckodriver.log
+geckodriver.exe
 
 #Vagrant
 .vagrant
-=======
+logs.txt
 
->>>>>>> parent of 1cf02dc (Merge from exercise-3)
