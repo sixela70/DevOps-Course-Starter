@@ -89,8 +89,8 @@ To run the end to end tests you will need
 
 
 To build the docker images run the below 
-build --target development --tag todo-app:dev .
-build --target production --tag todo-app:prod .
+docker build --target development --tag todo-app:dev .
+docker build --target production --tag todo-app:prod .
 
 To run the docker images 
 docker run --env-file <env_file> -dp 5000:5000 todo-app:dev

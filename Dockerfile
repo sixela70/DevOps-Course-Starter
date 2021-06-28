@@ -18,7 +18,7 @@ RUN curl -sSL https://raw.githubusercontent.com/python-poetry/poetry/master/get-
 WORKDIR /my-work-dir
 
 COPY todo_app ./todo_app
-COPY pyproject.toml poetry.toml poetry.lock .env ./
+COPY pyproject.toml poetry.toml poetry.lock ./
 
 # DEVELOPMENT #############################################
 FROM base as development

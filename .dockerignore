@@ -1,7 +1,7 @@
 .github
 .pytest_cache
 .vagrant
-.env
+
 .env.template
 .env.test
 .gitignore
