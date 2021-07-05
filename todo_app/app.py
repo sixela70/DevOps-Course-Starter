@@ -6,7 +6,6 @@ from todo_app.view_models.trello_view_model import TrelloViewModel
 
 def create_app():
     app = Flask(__name__, template_folder="templates")
-    app.config['FLASK_APP'] = "todo_app/app"
 
     @app.route("/", methods=['GET', 'POST'])
     def index():

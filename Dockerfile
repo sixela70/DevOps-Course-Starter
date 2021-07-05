@@ -17,11 +17,10 @@ RUN curl -sSL https://raw.githubusercontent.com/python-poetry/poetry/master/get-
 
 WORKDIR /my-work-dir
 
-COPY todo_app ./todo_app
-COPY pyproject.toml poetry.toml poetry.lock .env ./
-
 # DEVELOPMENT #############################################
 FROM base as development
+
+COPY pyproject.toml poetry.toml poetry.lock ./
 
 RUN poetry install 
 
@@ -33,7 +32,11 @@ CMD [ "poetry", "run", "flask", "run", "--host=0.0.0.0"]
 # PRODUCTION  docker run -dp 8000:8000 todo-app:prod ######
 FROM base AS production
 
+COPY pyproject.toml poetry.toml poetry.lock ./
+
 RUN poetry install --no-dev
+
+COPY todo_app ./todo_app
 
 EXPOSE 8000
 
