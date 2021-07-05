@@ -93,7 +93,19 @@ docker build --target development --tag todo-app:dev .
 docker build --target production --tag todo-app:prod .
 
 To run the docker images 
-docker run --env-file <env_file> -dp 5000:5000 todo-app:dev
+
+docker run --env-file <env_file> -p 5000:5000 --mount type=bind,source="$(pwd)"/todo_app,target=/my-work-dir/todo_app todo-app:dev
+{ 
+    Note to self ${pwd} did not work for me I got 
+    docker: Error response from daemon: invalid mount config for type "bind": invalid mount path: '$(pwd)/todo_app' mount path must be absolute.
+    Added docker_run_dev_mount.bat
+}
+
 docker run --env-file <env_file> -dp 8000:8000 todo-app:prod
 
-The env_file should conform to the .env.template in the project
+The env_file should conform to the .env.template in the project WITHOUT QUOTES
+Example : command_line_env.env
+
+
+
+
