@@ -126,3 +126,7 @@ geckodriver.exe
 #Vagrant
 .vagrant
 logs.txt
+
+#log files
+out.txt
+logs.txt
