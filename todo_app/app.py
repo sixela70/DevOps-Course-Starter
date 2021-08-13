@@ -1,10 +1,10 @@
+import os
 from flask.globals import request
 from todo_app.data.trello_items import add_item, get_trello_list, mark_item_done, mark_item_not_done, markid_item_done, markid_item_undone
 from flask import Flask, render_template, redirect
 
-import requests
-
-app = Flask(__name__, template_folder="templates")
+def create_app():
+    app = Flask(__name__, template_folder="templates")
 
 @app.route("/", methods=['GET', 'POST'])
 def index():
@@ -32,4 +32,4 @@ def isvalid(new_todo_item):
 
 
 if __name__ == '__main__':
-    app.run()
+    app = create_app().run(host='0.0.0.0', debug=True)

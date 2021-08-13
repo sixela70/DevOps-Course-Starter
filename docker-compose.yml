@@ -1,0 +1,16 @@
+version: "3.9"  # optional since v1.27.0
+
+services:
+    dev:
+        build: . #Builds imaage from Dockefile
+        ports:
+            - "5000:5000"            
+        env_file: .env
+        volumes:
+            - .:/todo_app # mount the current directory to /todo_app on the host. 
+
+    prod:
+        ports:
+            - "8000:8000"
+        env_file: .env
+

@@ -1,0 +1,104 @@
+FROM python:3 as base
+
+RUN apt-get update 
+
+#Docker always runs a root 
+# SO by default /root/.poetry/bin 
+# From get-poetry.py
+# HOME = expanduser("~")
+# POETRY_HOME = os.environ.get("POETRY_HOME") or os.path.join(HOME, ".poetry")
+# POETRY_BIN = os.path.join(POETRY_HOME, "bin")
+# POETRY_ENV = os.path.join(POETRY_HOME, "env")
+# POETRY_LIB = os.path.join(POETRY_HOME, "lib")
+# POETRY_LIB_BACKUP = os.path.join(POETRY_HOME, "lib-backup")
+
+ENV POETRY_HOME=/usr/poetry  
+ENV PATH=$PATH:$POETRY_HOME/bin
+
+# Pull poetry into the docker image
+RUN curl -sSL https://raw.githubusercontent.com/python-poetry/poetry/master/get-poetry.py | python 
+
+WORKDIR /my-work-dir
+
+COPY todo_app ./todo_app
+COPY pyproject.toml poetry.toml poetry.lock ./
+
+# #############################################################
+FROM base as development
+
+RUN poetry install 
+
+EXPOSE 5000
+
+# Setup run command : docker run -dp 5000:5000 todo-app:dev
+#CMD [ "poetry", "run", "flask", "run", "--host=0.0.0.0"]
+#CMD [ "bash" ]
+
+#ENTRYPOINT poetry run flask run --host=0.0.0.0 --port=5000
+ENTRYPOINT top
+
+
+
+
+# #############################################################
+# PRODUCTION  docker run -dp 8000:8000 todo-app:prod ######
+FROM base AS production
+
+RUN poetry install --no-dev
+
+EXPOSE 8000
+
+CMD [ "poetry" , "run" , "gunicorn","--bind", "0.0.0.0:8000", "todo_app.app:create_app()" ]
+
+
+# DEVELOPMENT #############################################
+FROM base as test
+
+# Install Google Chrome
+#RUN curl -sSL https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb -o chrome.deb 
+#RUN apt-get install ./chrome.deb -y 
+#RUN rm ./chrome.deb 
+# Install Chrome Webdriver
+#RUN LATEST=`curl -sSL https://chromedriver.storage.googleapis.com/LATEST_RELEASE` \
+#&& curl -sSL https://chromedriver.storage.googleapis.com/${LATEST}/chromedriver_linux64.zip -o chromedriver_linux64.zip 
+#RUN apt-get install unzip -y
+#RUN unzip ./chromedriver_linux64.zip && rm chromedriver_linux64.zip
+#RUN apt-get clean
+
+#RUN apt-get install tar # Dont think i need that 
+RUN apt-get -qqy --no-install-recommends install firefox
+RUN curl -sSL "https://download.mozilla.org/?product=firefox-latest&os=linux64&lang=en-US" -o firefox-latest.tar
+RUN tar -C /opt -xjf firefox-latest.tar
+RUN rm firefox-latest.tar
+
+
+
+#ARG FIREFOX_VERSION=88.0.1
+#RUN apt-get update -qqy \
+#  && apt-get -qqy --no-install-recommends install firefox \
+#  && rm -rf /var/lib/apt/lists/* /var/cache/apt/* \
+#  && wget --no-verbose -O /tmp/firefox.tar.bz2 https://download-installer.cdn.mozilla.net/pub/firefox/releases/$FIREFOX_VERSION/linux-x86_64/en-US/firefox-$FIREFOX_VERSION.tar.bz2 \
+#  #&& wget --no-verbose -O /tmp/firefox.tar https://download.mozilla.org/?product=firefox-latest&os=linux64&lang=en-US \
+#  && apt-get -y purge firefox \
+#  && rm -rf /opt/firefox \
+#  && tar -C /opt -xjf /tmp/firefox.tar.bz2 \
+#  && rm /tmp/firefox.tar.bz2 \
+#  && mv /opt/firefox /opt/firefox-$FIREFOX_VERSION \
+#  && ln -fs /opt/firefox-$FIREFOX_VERSION/firefox /usr/bin/firefox\
+ 
+ 
+#GeckoDriver
+#ARG GECKODRIVER_VERSION=0.29.1
+#RUN wget --no-verbose -O /tmp/geckodriver.tar.gz https://github.com/mozilla/geckodriver/releases/download/v$GECKODRIVER_VERSION/geckodriver-v$GECKODRIVER_VERSION-linux64.tar.gz \
+#  && rm -rf /opt/geckodriver \
+#  && tar -C /opt -zxf /tmp/geckodriver.tar.gz \
+#  && rm /tmp/geckodriver.tar.gz \
+#  && mv /opt/geckodriver /opt/geckodriver-$GECKODRIVER_VERSION \
+#  && chmod 755 /opt/geckodriver-$GECKODRIVER_VERSION \
+#  && ln -fs /opt/geckodriver-$GECKODRIVER_VERSION /usr/bin/geckodriver
+
+
+#RUN poetry install 
+
+#CMD [ "poetry" , "run" , "pytest"]
+
