@@ -1,3 +1,4 @@
+import os
 from flask.globals import request
 from flask import Flask, render_template, redirect
 from todo_app.trello.trello_api import TrelloAPI
@@ -5,7 +6,6 @@ from todo_app.view_models.trello_view_model import TrelloViewModel
 
 def create_app():
     app = Flask(__name__, template_folder="templates")
-    #app.config.from_object('app_config.Config')
 
     @app.route("/", methods=['GET', 'POST'])
     def index():
@@ -40,5 +40,4 @@ def create_app():
     return app
 
 if __name__ == '__main__':
-    app = create_app()
-    app.run()
+    app = create_app().run(host='0.0.0.0', debug=True)

@@ -88,6 +88,26 @@ To run the end to end tests you will need
 4. To run the e2e tests >> poetry run pytest todo_app/tests_e2e
 
 
+To build the docker images run the below 
+docker build --target development --tag todo-app:dev .
+docker build --target production --tag todo-app:prod .
+
+To run the docker images 
+
+docker run --env-file <env_file> -p 5000:5000 --mount type=bind,source="$(pwd)"/todo_app,target=/my-work-dir/todo_app todo-app:dev
+{ 
+    Note to self ${pwd} did not work for me I got 
+    docker: Error response from daemon: invalid mount config for type "bind": invalid mount path: '$(pwd)/todo_app' mount path must be absolute.
+    Added docker_run_dev_mount.bat
+}
+
+docker run --env-file <env_file> -dp 8000:8000 todo-app:prod
+
+The env_file should conform to the .env.template in the project WITHOUT QUOTES
+Example : command_line_env.env
+
+
+=======
 Running within Vagrant VM
 
 This project runs Vagrant on Hyper-V please follow these instructions for setup https://techcommunity.microsoft.com/t5/virtualization/vagrant-and-hyper-v-tips-and-tricks/ba-p/382373

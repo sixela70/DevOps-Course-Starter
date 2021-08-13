@@ -1,6 +1,7 @@
 import os
 import requests
- 
+from dotenv import load_dotenv, find_dotenv
+
 class TrelloBase:
 
     init = False
@@ -16,9 +17,19 @@ class TrelloBase:
        
     @classmethod
     def init_keys(cls):
-        TrelloBase.developer_api_key = os.environ['DEVELOPER_API_KEY']
-        TrelloBase.my_secret = os.environ['MY_SECRET']
-        TrelloBase.server_token = os.environ['SERVER_TOKEN']
+        #If the environment variables have not been set then try and read .env file 
+        #Flask by default reads in .env file 
+        if 'DEVELOPER_API_KEY' not in os.environ or 'MY_SECRET' not in os.environ or 'SERVER_TOKEN' not in os.environ:
+            print ('Missing environment variable one of DEVELOPER_API_KEY,MY_SECRET,SERVER_TOKEN trying to read .env')            
+            file_path = find_dotenv('.env')
+            load_dotenv(file_path, override=True)
+
+        if 'DEVELOPER_API_KEY' not in os.environ or 'MY_SECRET' not in os.environ or 'SERVER_TOKEN' not in os.environ:
+            print ('Could not find Missing environment variables..please supply or drop in .env file')            
+        else: 
+            TrelloBase.developer_api_key = os.environ['DEVELOPER_API_KEY']
+            TrelloBase.my_secret = os.environ['MY_SECRET']
+            TrelloBase.server_token = os.environ['SERVER_TOKEN']
 
     @classmethod
     def auth_tokens(cls):
@@ -36,6 +47,11 @@ class TrelloBase:
 
         return { 'key' : TrelloBase.developer_api_key, 'token' : TrelloBase.server_token }
     
+    '''
+    Will look for board called ToDo from the boards accessable in the Trello account 
+    UNLESS
+    the environment variable TRELLO_BOARD_ID has been set else where. 
+    '''
     @classmethod
     def get_board_id(cls):
         if 'TRELLO_BOARD_ID' in os.environ:
