@@ -91,6 +91,7 @@ To run the end to end tests you will need
 To build the docker images run the below 
 docker build --target development --tag todo-app:dev .
 docker build --target production --tag todo-app:prod .
+docker build --target test --tag todo-app:test .
 
 To run the docker images 
 
@@ -99,7 +100,7 @@ docker run --env-file <env_file> -p 5000:5000 --mount type=bind,source="$(pwd)"/
     Note to self ${pwd} did not work for me I got 
     docker: Error response from daemon: invalid mount config for type "bind": invalid mount path: '$(pwd)/todo_app' mount path must be absolute.
     Added docker_run_dev_mount.bat
-}
+}poert
 
 docker run --env-file <env_file> -dp 8000:8000 todo-app:prod
 
@@ -108,4 +109,5 @@ Example : command_line_env.env
 
 
 
-
+Note that the ChromeDriver needs to be in the path fro windows. 
+https://sites.google.com/a/chromium.org/chromedriver/homepoetry 

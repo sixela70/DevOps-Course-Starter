@@ -50,22 +50,31 @@ CMD [ "poetry" , "run" , "gunicorn","--bind", "0.0.0.0:8000", "todo_app.app:crea
 # TEST
 FROM base as test
 
-# Install Google Chrome
-RUN curl -sSL https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb -o chrome.deb 
-RUN apt-get install ./chrome.deb -y 
-RUN rm ./chrome.deb 
-# Install Chrome Webdriver
-RUN LATEST=`curl -sSL https://chromedriver.storage.googleapis.com/LATEST_RELEASE` \
-&& curl -sSL https://chromedriver.storage.googleapis.com/${LATEST}/chromedriver_linux64.zip -o chromedriver_linux64.zip 
-RUN apt-get install unzip -y
-RUN unzip ./chromedriver_linux64.zip && rm chromedriver_linux64.zip
-RUN apt-get clean
-
 COPY pyproject.toml poetry.toml poetry.lock .env ./
 
 RUN poetry install 
 
 COPY todo_app ./todo_app 
 
-CMD [ "poetry" , "run" , "pytest"]
+#CMD [ "poetry" , "run" , "pytest"]
+
+RUN apt-get update -qqy && apt-get install -qqy wget gnupg unzip
+# Install Chrome
+RUN wget -q -O - https://dl-ssl.google.com/linux/linux_signing_key.pub | apt-key add - \
+  && echo "deb http://dl.google.com/linux/chrome/deb/ stable main" >> /etc/apt/sources.list.d/google-chrome.list \
+  && apt-get update -qqy \
+  && apt-get -qqy install google-chrome-stable \
+  && rm /etc/apt/sources.list.d/google-chrome.list \
+  && rm -rf /var/lib/apt/lists/* /var/cache/apt/*
+
+# Install Chrome WebDriver
+RUN CHROME_MAJOR_VERSION=$(google-chrome --version | sed -E "s/.* ([0-9]+)(\.[0-9]+){3}.*/\1/") \
+  && CHROME_DRIVER_VERSION=$(wget --no-verbose -O - "https://chromedriver.storage.googleapis.com/LATEST_RELEASE_${CHROME_MAJOR_VERSION}") \
+  && echo "Using chromedriver version: "$CHROME_DRIVER_VERSION \
+  && wget --no-verbose -O /tmp/chromedriver_linux64.zip https://chromedriver.storage.googleapis.com/$CHROME_DRIVER_VERSION/chromedriver_linux64.zip \
+  && unzip /tmp/chromedriver_linux64.zip -d /usr/bin \
+  && rm /tmp/chromedriver_linux64.zip \
+  && chmod 755 /usr/bin/chromedriver
+
+ENTRYPOINT ["poetry", "run", "pytest"]
 

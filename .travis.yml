@@ -1,3 +1,22 @@
 script:
 - echo "Starting script section"
 - docker build --target production --tag todo-app/production .
+
+
+services:
+- docker
+script:
+- docker build --tag todo-app-dev --target development .
+- docker build --tag todo-app-test --target test .
+- docker build --target production --tag /todo-app-prod . 
+#docker push registry.heroku.com/devops-dotnet/web
+- docker run -e API_KEY -e SERVER_TOKEN -e BOARD_ID todo-app-test
+#- echo $DOCKER_PW | docker login -u $DOCKER_USER --password-stdin
+
+deploy:
+  skip_cleanup: true
+  provider: script
+  script: bash docker_push
+  on:
+    branch: exercise-7
+  
