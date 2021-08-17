@@ -1,4 +1,4 @@
-FROM python:3 as base
+FROM python:3.8-slim-buster as base
 
 RUN apt-get update 
 
@@ -15,48 +15,59 @@ RUN apt-get update
 ENV POETRY_HOME=/usr/poetry 
 ENV PATH=$PATH:$POETRY_HOME/bin
 
+FROM base as build-dependencies
+
+RUN apt-get update \
+    && apt-get install --no-install-recommends -y \
+        # deps for installing poetry
+        curl \
+        # deps for building python deps
+        build-essential
+
+
 RUN curl -sSL https://raw.githubusercontent.com/python-poetry/poetry/master/get-poetry.py | python 
 
-WORKDIR /my-work-dir
+WORKDIR /workdir
+
+COPY pyproject.toml poetry.toml poetry.lock .env ./
+
+#RUN poetry config virtualenvs.create false \
+#  && poetry install --no-dev  --no-interaction --no-ansi
+
+
+
+# #############################################################
+# PRODUCTION  docker run -dp 8000:8000 todo-app:prod ######
+FROM build-dependencies AS production
+
+COPY todo_app ./todo_app 
+
+RUN poetry install
+
+EXPOSE 5000
+
+CMD [ "poetry" , "run" , "gunicorn","--bind", "0.0.0.0:8000", "todo_app.app:create_app()" ]
+
 
 # #############################################################
 # DEVELOPMENT docker run --env-file <env_file> -p 5000:5000 --mount type=bind,source="$(pwd)"/todo_app,target=/my-work-dir/todo_app todo-app:dev
-FROM base as development
+FROM build-dependencies as development
 
-COPY pyproject.toml poetry.toml poetry.lock ./
+COPY todo_app ./todo_app 
 
-RUN poetry install 
+RUN poetry install
 
 EXPOSE 5000
 
 # Setup run command : docker run -dp 5000:5000 todo-app:dev
 CMD [ "poetry", "run", "flask", "run", "--host=0.0.0.0"]
 
-# #############################################################
-# PRODUCTION  docker run -dp 8000:8000 todo-app:prod ######
-FROM base AS production
-
-COPY pyproject.toml poetry.toml poetry.lock ./
-
-RUN poetry install --no-dev
-
-COPY todo_app ./todo_app 
-
-EXPOSE 8000
-
-CMD [ "poetry" , "run" , "gunicorn","--bind", "0.0.0.0:8000", "todo_app.app:create_app()" ]
 
 # #############################################################
 # TEST
-FROM base as test
-
-COPY pyproject.toml poetry.toml poetry.lock .env ./
-
-RUN poetry install 
+FROM build-dependencies as test
 
 COPY todo_app ./todo_app 
-
-#CMD [ "poetry" , "run" , "pytest"]
 
 RUN apt-get update -qqy && apt-get install -qqy wget gnupg unzip
 # Install Chrome
@@ -76,5 +87,10 @@ RUN CHROME_MAJOR_VERSION=$(google-chrome --version | sed -E "s/.* ([0-9]+)(\.[0-
   && rm /tmp/chromedriver_linux64.zip \
   && chmod 755 /usr/bin/chromedriver
 
+RUN poetry install
+
 ENTRYPOINT ["poetry", "run", "pytest"]
+
+
+
 
