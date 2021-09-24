@@ -29,7 +29,7 @@ RUN curl -sSL https://raw.githubusercontent.com/python-poetry/poetry/master/get-
 
 WORKDIR /workdir
 
-COPY pyproject.toml poetry.toml poetry.lock .env ./
+COPY pyproject.toml poetry.toml poetry.lock ./
 
 #RUN poetry config virtualenvs.create false \
 #  && poetry install --no-dev  --no-interaction --no-ansi

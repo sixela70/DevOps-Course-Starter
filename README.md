@@ -107,7 +107,17 @@ docker run --env-file <env_file> -dp 8000:8000 todo-app:prod
 The env_file should conform to the .env.template in the project WITHOUT QUOTES
 Example : command_line_env.env
 
-
-
 Note that the ChromeDriver needs to be in the path fro windows. 
 https://sites.google.com/a/chromium.org/chromedriver/homepoetry 
+
+Running the tests inside the docker test container
+
+Build
+docker build --target test --tag my-test-image .
+
+Run 
+docker run my-test-image todo_app/tests
+docker run my-test-image todo_app/tests_e2e
+
+Debug
+docker run -it --entrypoint /bin/bash my-test-image:latest -s
