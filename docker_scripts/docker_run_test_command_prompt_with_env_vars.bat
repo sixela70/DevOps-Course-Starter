@@ -1,0 +1,1 @@
+docker run -it --entrypoint /bin/bash -e DEVELOPER_API_KEY="2bf28cd9609b6d82c6accd4fa78be70c" -e MY_SECRET="526dac3e066c92f0e02701bf983246e6a0aea2b065f516055e0f7e5098700caf" -e SERVER_TOKEN="94027d7e2a6eedb95e62a24826ae1eff2d074717a7db7e1c0b108210813c3cfa" todo-app-test:latest -s
