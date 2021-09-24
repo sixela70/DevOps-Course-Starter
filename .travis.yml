@@ -4,7 +4,7 @@ script:
 - docker build --tag todo-app-dev --target development .
 - docker build --tag todo-app-test --target test .
 - docker build --tag todo-app-prod --target production  .
-- docker run -e MY_SECRTE -e SERVER_TOKEN -e DEVELOPER_API_KEY
+- docker run -e MY_SECRET -e SERVER_TOKEN -e DEVELOPER_API_KEY
 
 deploy:
   skip_cleanup: true
