@@ -13,10 +13,6 @@ from threading import Thread
 @pytest.fixture(scope='module')
 def test_app():    
 
-    # This e2e test requires actual access to Trello 
-    file_path = find_dotenv('.env')
-    load_dotenv(file_path, override=True)
-
     # Create the new board and update the board id environment variable
     os.environ['TRELLO_BOARD_ID']  = TrelloAPI.create_trello_board("E2E test Board")
 
@@ -33,11 +29,6 @@ def test_app():
     thread.join(1)
     TrelloAPI.delete_trello_board( os.environ['TRELLO_BOARD_ID'] )
 
-#@pytest.fixture(scope='module')
-#def driver():
-#    with webdriver.Firefox() as driver:
-#        yield driver
-        
 @pytest.fixture(scope='module')
 def driver():
     opts = webdriver.ChromeOptions()
