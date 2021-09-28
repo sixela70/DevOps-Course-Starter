@@ -44,9 +44,6 @@ COPY todo_app ./todo_app
 
 RUN poetry install
 
-#EXPOSE 5000
-
-#CMD [ "poetry" , "run" , "gunicorn","--bind", "0.0.0.0:$PORT", "todo_app.app:create_app()" ]
 CMD [ "sh", "-c", "poetry run gunicorn -w 4 -b 0.0.0.0:$PORT 'todo_app.app:create_app()'" ]
 
 
