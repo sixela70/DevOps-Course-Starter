@@ -17,12 +17,12 @@ script:
   - echo $DOCKER_PWD | docker login -u "$DOCKER_USER" --password-stdin
   - docker push $DOCKER_USER/todo-app-prod:$TRAVIS_COMMIT
 
-  - #echo "Push the TODO list to Heroku"
-  - #docker pull $DOCKER_USER/todo-app-prod:$TRAVIS_COMMIT
-  - #docker tag $DOCKER_USER/todo-app-prod:$TRAVIS_COMMIT registry.heroku.com/sixela-app/web
-  - #heroku container:login
-  - #docker push registry.heroku.com/sixela70/web
-  - #heroku container:release web -a sixela-app
+  - echo "Push the TODO list to Heroku"
+  - docker pull $DOCKER_USER/todo-app-prod:$TRAVIS_COMMIT
+  - docker tag $DOCKER_USER/todo-app-prod:$TRAVIS_COMMIT registry.heroku.com/sixela-app/web
+  - heroku container:login
+  - docker push registry.heroku.com/sixela70/web
+  - heroku container:release web -a sixela-app
 
 env:  
   global:
