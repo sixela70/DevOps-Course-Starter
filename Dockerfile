@@ -46,7 +46,7 @@ RUN poetry install
 
 EXPOSE 5000
 
-CMD [ "poetry" , "run" , "gunicorn","--bind", "0.0.0.0:8000", "todo_app.app:create_app()" ]
+CMD [ "poetry" , "run" , "gunicorn","--bind", "0.0.0.0:$PORT", "todo_app.app:create_app()" ]
 
 
 # #############################################################
