@@ -1,4 +1,4 @@
-FROM python:3.8-slim-buster as base
+FROM python:3.8.12-slim-buster as base
 
 RUN apt-get update 
 
