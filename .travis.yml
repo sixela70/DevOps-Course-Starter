@@ -22,7 +22,7 @@ script:
   - docker tag $DOCKER_USER/todo-app-prod:$TRAVIS_COMMIT registry.heroku.com/sixela-app/web
   - # heroku container:login
   - echo $HEROKU_API_KEY | docker login --username=_ --password-stdin registry.heroku.com 
-  - docker push registry.heroku.com/sixela70/web
+  - docker push registry.heroku.com/sixela-app/web
   - heroku container:release web -a sixela-app
 
 env:  
