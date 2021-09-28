@@ -20,12 +20,14 @@ script:
   - echo "Push the TODO list to Heroku"
   - docker pull $DOCKER_USER/todo-app-prod:$TRAVIS_COMMIT
   - docker tag $DOCKER_USER/todo-app-prod:$TRAVIS_COMMIT registry.heroku.com/sixela-app/web
-  - heroku container:login
+  - # heroku container:login
+  - echo $HEROKU_API_KEY | docker login --username=_ --password-stdin registry.heroku.com 
   - docker push registry.heroku.com/sixela70/web
   - heroku container:release web -a sixela-app
 
 env:  
   global:
+    - HEROKU_API_KEY=7875f003-63f5-4c71-9f3c-f6ff73d5f8af
     - DOCKER_USER=sixela70
     - DOCKER_PWD=,SyYBiFp2St68H9      
     - FLASK_APP=todo_app/app
