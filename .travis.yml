@@ -11,7 +11,9 @@ script:
   - docker build --tag todo-app-prod:$TRAVIS_COMMIT --target production  .
   - #docker run -e MY_SECRET -e SERVER_TOKEN -e DEVELOPER_API_KEY -e FLASK_APP -e FLASK_ENV todo-app-test:latest
   - echo "Push Production image to Docker Hub"
-  - echo "$DOCKER_PW" | docker login -u "$DOCKER_USER" --password-stdin
+  - echo $DOCKER_PW
+  - echo $DOCKER_USER
+  - echo $DOCKER_PW | docker login -u "$DOCKER_USER" --password-stdin
   - docker push $DOCKER_USER/todo-app-prod:$TRAVIS_COMMIT
 
   - #echo "Push the TODO list to Heroku"
