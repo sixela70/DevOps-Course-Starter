@@ -2,19 +2,13 @@ import pytest
 import os 
 
 from todo_app.app import create_app
-from todo_app.trello.trello_api import TrelloAPI
-from todo_app.trello.trello_api import TrelloBase
 from dotenv import load_dotenv, find_dotenv
 from selenium import webdriver
 from selenium.webdriver.chrome.options import Options
 from threading import Thread
 
-
 @pytest.fixture(scope='module')
 def test_app():    
-
-    # Create the new board and update the board id environment variable
-    os.environ['TRELLO_BOARD_ID']  = TrelloAPI.create_trello_board("E2E test Board")
 
     # construct the new application                                                                                 
     application = create_app()
@@ -27,7 +21,6 @@ def test_app():
 
     #Tear Down
     thread.join(1)
-    TrelloAPI.delete_trello_board( os.environ['TRELLO_BOARD_ID'] )
 
 @pytest.fixture(scope='module')
 def driver():
