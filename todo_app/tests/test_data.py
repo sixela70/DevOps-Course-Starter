@@ -1,36 +1,30 @@
 from datetime import datetime, timedelta
 
-from todo_app.trello.trello_item import TrelloItem
-from todo_app.trello.trello_list import TrelloList
-from todo_app.trello.trello_base  import TrelloBase
+from todo_app.data.item import Item
 
-TrelloBase.todo_list_id = 1
-TrelloBase.done_list_id = 2
-TrelloBase.doing_list_id = 3
+get_banana = Item(10,'Get Banana',"Done",datetime.now()) 
+get_apple = Item(12,'Get Apple',"Done",datetime.now())
+get_pear = Item(13,'Get Pear',"Done",datetime.now())
+get_ford = Item(24,'Get Ford',"ToDo",datetime.now())
+get_ferrari = Item(25,'Get Ferrari',"ToDo",datetime.now())
+get_rambutans = Item(37,'Get Rambutans',"Done", datetime.now() - timedelta(1))
+get_piper_1 = Item(61,'Get Piper 1',"Doing",datetime.now())
+get_piper_2 = Item(62,'Get Piper 2',"Doing",datetime.now())
+get_piper_3 = Item(63,'Get Piper 3',"Doing",datetime.now())
+get_piper_4 = Item(64,'Get Piper 4',"Doing",datetime.now())
+get_piper_5 = Item(65,'Get Piper 5',"Doing",datetime.now())
 
-get_banana = TrelloItem(10,'Get Banana',TrelloBase.get_done_list_id(),datetime.now()) 
-get_apple = TrelloItem(12,'Get Apple',TrelloBase.get_done_list_id(),datetime.now())
-get_pear = TrelloItem(13,'Get Pear',TrelloBase.get_done_list_id(),datetime.now())
-get_ford = TrelloItem(24,'Get Ford',TrelloBase.get_todo_list_id(),datetime.now())
-get_ferrari = TrelloItem(25,'Get Ferrari',TrelloBase.get_todo_list_id(),datetime.now())
-get_rambutans = TrelloItem(37,'Get Rambutans',TrelloBase.get_done_list_id(), datetime.now() - timedelta(1))
-get_piper_1 = TrelloItem(61,'Get Piper 1',TrelloBase.get_doing_list_id(),datetime.now())
-get_piper_2 = TrelloItem(62,'Get Piper 2',TrelloBase.get_doing_list_id(),datetime.now())
-get_piper_3 = TrelloItem(63,'Get Piper 3',TrelloBase.get_doing_list_id(),datetime.now())
-get_piper_4 = TrelloItem(64,'Get Piper 4',TrelloBase.get_doing_list_id(),datetime.now())
-get_piper_5 = TrelloItem(65,'Get Piper 5',TrelloBase.get_doing_list_id(),datetime.now())
-
-def get_test_trello_list():
-    trello_list = TrelloList()  
-    trello_list.add( get_banana )
-    trello_list.add( get_apple )
-    trello_list.add( get_pear )
-    trello_list.add( get_ford )
-    trello_list.add( get_ferrari )
-    trello_list.add( get_rambutans )
-    trello_list.add( get_piper_1)
-    trello_list.add( get_piper_2)
-    trello_list.add( get_piper_3)
-    trello_list.add( get_piper_4)
-    trello_list.add( get_piper_5)
-    return trello_list
+def get_test_item_list():
+    list = [] 
+    list.append( get_banana )
+    list.append( get_apple )
+    list.append( get_pear )
+    list.append( get_ford )
+    list.append( get_ferrari )
+    list.append( get_rambutans )
+    list.append( get_piper_1)
+    list.append( get_piper_2)
+    list.append( get_piper_3)
+    list.append( get_piper_4)
+    list.append( get_piper_5)
+    return list

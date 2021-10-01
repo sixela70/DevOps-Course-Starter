@@ -8,7 +8,7 @@ content %}
   <div class="list_row">
     <div class="list" id="ToDo">
       <h2 class="list-header-name">To Do</h2>
-      {% for item in view_model.get_todo_items().trello_items %}
+      {% for item in view_model.get_todo_items() %}
       <div class="card_container">
         <div class="card_text">{{ item.title }}</div>
         <div class="card_button">
@@ -22,7 +22,7 @@ content %}
 
     <div class="list" id="Doing">
       <h2 class="list-header-name">Doing</h2>
-      {% for item in view_model.get_doing_items().trello_items %}
+      {% for item in view_model.get_doing_items() %}
       <div class="card_container">
         <div class="card_text">{{ item.title }}</div>
         <div class="card_button">
@@ -36,7 +36,7 @@ content %}
 
     <div class="list" id="Done">
       <h2 class="list-header-name">Done</h2>
-      {% for item in view_model.show_all_done_items().trello_items %}
+      {% for item in view_model.show_all_done_items() %}
       <div class="card_container">
         <div class="card_text">{{ item.title }}</div>
         <div class="card_button">
@@ -54,7 +54,7 @@ content %}
   <div class="list_row">
     <div class="list" id="RecentDoneItems">
       <h2 class="list-header-name">Recent Done Items</h2>
-      {% for item in view_model.recent_done_items().trello_items %}
+      {% for item in view_model.recent_done_items() %}
       <div class="card_container">
         <div class="card_text">{{ item.title }}</div>
         <div class="card_button">
@@ -68,7 +68,7 @@ content %}
 
     <div class="list" id="OlderDoneItems">
       <h2 class="list-header-name">Older Done Items</h2>
-      {% for item in view_model.older_done_items().trello_items %}
+      {% for item in view_model.older_done_items() %}
       <div class="card_container">
         <div class="card_text">{{ item.title }}</div>
         <div class="card_button">

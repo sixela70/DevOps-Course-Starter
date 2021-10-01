@@ -44,6 +44,8 @@ COPY todo_app ./todo_app
 
 RUN poetry install
 
+EXPOSE $PORT
+
 CMD [ "sh", "-c", "poetry run gunicorn -w 4 -b 0.0.0.0:$PORT 'todo_app.app:create_app()'" ]
 
 
