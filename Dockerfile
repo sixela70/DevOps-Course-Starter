@@ -1,4 +1,4 @@
-FROM python:3.8-slim-buster as base
+FROM python:3.8.12-slim-buster as base
 
 RUN apt-get update 
 
@@ -44,9 +44,7 @@ COPY todo_app ./todo_app
 
 RUN poetry install
 
-EXPOSE 5000
-
-CMD [ "poetry" , "run" , "gunicorn","--bind", "0.0.0.0:8000", "todo_app.app:create_app()" ]
+CMD [ "sh", "-c", "poetry run gunicorn -w 4 -b 0.0.0.0:$PORT 'todo_app.app:create_app()'" ]
 
 
 # #############################################################
