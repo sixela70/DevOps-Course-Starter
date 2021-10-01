@@ -3,6 +3,7 @@ import pymongo
 import datetime
 from bson import ObjectId
 from todo_app.data.item import Item
+from todo_app.data.user import User
 
 class MongoDb:
 
@@ -34,7 +35,42 @@ class MongoDb:
         print(f"Connected to {server}/{database}")
         cls.database=cls.client[database]
         cls.items_collection = cls.database.items_collection
+        cls.user_collection = cls.database.users
         cls.init=True
+
+    @classmethod
+    def get_user(cls, username):
+        if cls.init == False:
+            cls.initdb()
+        user = cls.user_collection.find_one({'username': username})
+        if user == None:
+            print(f"User not found {username}")
+        else:
+            return User(user['_id'], user['username'], user['role'])
+
+    @classmethod
+    def add_user(cls, username, role):
+        if cls.init == False:
+            cls.initdb()
+
+        new_user = {"username": username, "role" : role}
+        id = cls.user_collection.insert_one(new_user).inserted_id
+        return  User(id,username, role)
+
+    @classmethod
+    def get_all_users(cls):
+        if cls.init == False:
+            cls.initdb()
+        users = []
+        print("Getting the users from the mongo db")
+    
+        user_objects = cls.user_collection.find({})
+        for user_object in user_objects:
+            user = User(user_object["_id"],user_object["username"], user_object["role"])
+
+            users.append(user)
+
+        return users
 
 
     """ Gets all the todo items from DB"""
